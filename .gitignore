@@ -1,1 +1,7 @@
-target/
+**/__pycache__**
+weights**
+.conda**
+.venv
+tmp**
+build**
+dist**
