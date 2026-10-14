@@ -15,7 +15,7 @@ data_de_referencia: ""      # AAAA-MM-DD (dia em que os cálculos foram feitos)
 
 # 03 — Auditoria de Prazos e Prescrição (M1) — <CASO>
 
-## 1 Premissas de Contagem
+## 1 Premissas de Contagem (Parte I — Prazos, /prazos-penais)
 
 | Premissa | Aplicação no caso | Fonte |
 |---|---|---|
@@ -34,14 +34,14 @@ data_de_referencia: ""      # AAAA-MM-DD (dia em que os cálculos foram feitos)
 
 ## 3 Memória de Cálculo
 
-<!-- Uma subseção "### Prazo n — <ato>" por linha da tabela 2, em prosa curta: intimação, regra aplicada, dias pulados e por quê. -->
+<!-- Uma subseção "### Prazo n — <ato>" por linha da tabela 2, em prosa curta: intimação, regra aplicada, dias pulados e por quê, e a data interna de segurança. Executória: prazo pela pena aplicada ou restante (art. 113 CP), com +1/3 se reincidente. -->
 
 ## 4 Status Prisional e Controles Temporais
 
 | Controle | Data-base | Limite | Situação | Fundamento |
 |---|---|---|---|---|
 
-## 5 Prescrição
+## 5 Prescrição (Parte II — /prescricao)
 
 ### 5.1 Dados de base
 
@@ -55,22 +55,17 @@ data_de_referencia: ""      # AAAA-MM-DD (dia em que os cálculos foram feitos)
 | Pena em concreto (se houver sentença) e trânsito para a acusação | | | |
 | Concurso de crimes (art. 119 CP) / crime continuado (STF, Súmula 497) | | | |
 
-### 5.2 Pretensão punitiva em abstrato (art. 109 CP)
+### 5.2 Quadro da prescrição por crime e espécie
 
-| Crime | Pena máxima | Prazo (art. 109) | Redução (art. 115) | Prazo aplicável | Intervalo entre marcos | Início | Fim | Situação |
+| Crime | Pena de referência | Espécie (abstrata / retroativa / superveniente / executória) | Prazo (art. 109) | Art. 115 | Prazo final | Intervalo crítico | Data-limite | Status (🟢 / 🟡 / 🔴 IMINENTE / ⚫ CONSUMADA) |
 |---|---|---|---|---|---|---|---|---|
 
-### 5.3 Pretensão punitiva retroativa e intercorrente (art. 110, § 1º, CP)
+### 5.3 Marcos e intervalos
 
-| Crime | Pena em concreto | Prazo aplicável | Intervalo | Início | Fim | Situação |
-|---|---|---|---|---|---|---|
+| Intervalo | De | Até | Duração | Suspensões | Prazo | Prescreveu? | Fonte (id/fl.) | Confiança |
+|---|---|---|---|---|---|---|---|---|
 
-### 5.4 Pretensão executória (art. 110, caput, CP)
-
-| Crime | Pena aplicada | Prazo (com +1/3 se reincidente) | Termo inicial | Data-limite | Situação |
-|---|---|---|---|---|---|
-
-### 5.5 Conclusão e data-limite crítica
+### 5.4 Conclusão e data-limite crítica
 
 <!-- Prosa curta: há prescrição consumada? Qual a data mais próxima de consumação? Lembrar a STJ, Súmula 438 (vedação da prescrição em perspectiva). -->
 

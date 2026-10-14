@@ -39,8 +39,9 @@ Convenção de caminhos nos agentes: caminhos sem prefixo são relativos a `CASO
 | `analise/07-revisao.md` | `arpac-revisor` | estrategista, redator, controller |
 | `minutas/<peca>-vN.md` e `.docx` | `arpac-redator` | revisor, Douglas |
 | `gestao/status.md`, `gestao/log.md`, `napkin_log.md`, `memory.md` | `arpac-controller` | todos |
+| `VAULT/Shared/painel-semanal-AAAA-MM-DD.md` (opcional) | `arpac-controller`, só quando o Douglas pede para salvar | equipe |
 | `VAULT/Shared/painel-casos.md` | `arpac-triagem` (cria o card) e `arpac-controller` (move e atualiza) | todos |
-| Demais arquivos de `VAULT/Shared/` e `CLAUDE.md` | humano (a IA só propõe alterações) | todos |
+| Demais arquivos de `VAULT/Shared/` e `CLAUDE.md` | humano (a IA só propõe alterações); exceção: exports de `Shared/conhecimento/` gravados pelo `arpac-controller` após o "Aprovado" do Douglas (`notebooklm/cadernos.md`) | todos |
 
 ## 3 Convenção de Nomes
 
@@ -62,8 +63,8 @@ IDs estáveis e referenciáveis entre arquivos (nunca renumerar; item descartado
 | `T#` / `T#.#` | tese (ramo / sub-ramo) | `analise/04-teses.md` |
 | `P#` | precedente | `analise/05-jurisprudencia.md` |
 | `R#` | pedido | `analise/06-blueprint.md` |
-| `C#` | correção exigida | `analise/07-revisao.md` |
-| `Q#` | pergunta socrática (numeração local; citar como `02#Q3`) | 01, 02, 03, 04 |
+| `C#` | achado do revisor (CRÍTICO / RELEVANTE / ESTÉTICO) | `analise/07-revisao.md` |
+| `Q#` | pergunta socrática (numeração local; citar como `02#Q3`; prioridade CRÍTICA / ALTA / COMPLEMENTAR) | 01, 02, 03, 04 |
 
 ## 4 YAML Frontmatter Penal
 
@@ -132,11 +133,11 @@ Marcadores no texto: `[PENDENTE: descrição]`, `[REQUER CONSULTA AO SISTEMA DE 
 | Alerta | Gatilho | Etiqueta do Kanban |
 |---|---|---|
 | RÉU PRESO | cliente preso ou internado em qualquer modalidade | `#reu-preso` |
-| PRAZO FATAL | termo final em até 48 horas | `#prazo-fatal` |
-| PRAZO CURTO | termo final em até 5 dias corridos | — |
+| PRAZO FATAL | termo final em até 2 dias (48 horas), ou réu preso com até 3 dias (🔴 da `/prazos-penais`) | `#prazo-fatal` |
+| PRAZO CURTO | termo final em 3 a 5 dias corridos (🟡) | — |
 | PRAZO VENCIDO | termo final ultrapassado sem ato | `#prazo-fatal` |
 | PRESCRIÇÃO CONSUMADA | prazo prescricional já decorrido | `#prescricao-risco` |
-| PRESCRIÇÃO IMINENTE | consumação em até 180 dias | `#prescricao-risco` |
+| PRESCRIÇÃO IMINENTE | consumação em menos de 6 meses (🔴 da `/prescricao`) | `#prescricao-risco` |
 | REVISÃO 90 DIAS | revisão do art. 316, p.ú., CPP vencida ou com limite em até 10 dias | `#reu-preso` |
 | EXCESSO DE PRAZO | instrução ou inquérito além do razoável com réu preso | `#reu-preso` |
 | CONFLITO DE INTERESSES | colidência entre clientes ou com caso do escritório | — |
@@ -146,6 +147,8 @@ Marcadores no texto: `[PENDENTE: descrição]`, `[REQUER CONSULTA AO SISTEMA DE 
 | MEDIDA PROTETIVA VIGENTE | MPU da Lei 11.340/06 em vigor | `#maria-da-penha` |
 | JÚRI | competência do Tribunal do Júri | `#juri` |
 | REPROVADO | veredito do `arpac-revisor` | — |
+
+Nos retornos dos agentes ao orquestrador, os alertas vêm entre colchetes (ex.: `[RÉU PRESO]`). Correspondência com a skill `/arpa-criminal`: `[PRAZO FATAL < 48h]` é o seu `[PRAZO < 48h]` (vermelho) e PRAZO CURTO é o nível amarelo; PRESCRIÇÃO IMINENTE e PRESCRIÇÃO CONSUMADA desdobram o seu alerta PRESCRIÇÃO.
 
 Etiquetas por classificação: `#execucao` (fase de execução penal), `#superiores` (STJ ou STF), `#maria-da-penha` (rito ou contexto da Lei 11.340/06), `#juri` (rito do júri).
 
@@ -169,7 +172,7 @@ Card (uma linha, sem nome completo nem CPF): `- [ ] **<CASO>** | <peça ou objet
 
 ## 9 Versionamento e Handoff
 
-Cada agente regrava apenas os seus arquivos, incrementa `versao` e atualiza `atualizado_em`. Conteúdo substituído não é apagado da análise quando relevante para o histórico: marca-se `[SUPERADO]`. Minutas nunca são sobrescritas: correções geram `-vN+1`. O handoff entre agentes é feito exclusivamente pelos arquivos: o agente seguinte lê o arquivo do anterior, nunca a memória da conversa. Respostas do Douglas nos portões ficam em `gestao/status.md` §6.
+Cada agente regrava apenas os seus arquivos, incrementa `versao` e atualiza `atualizado_em`. Conteúdo substituído não é apagado da análise quando relevante para o histórico: marca-se `[SUPERADO]`. Minutas nunca são sobrescritas: correções geram `-vN+1`. O handoff entre agentes é feito exclusivamente pelos arquivos: o agente seguinte lê o arquivo do anterior, nunca a memória da conversa. As respostas às perguntas do Portão 1 ficam em `analise/01-triagem.md` §11 (gravadas pelo `arpac-triagem` em modo atualização); as decisões de todos os portões, em `gestao/status.md` §6 (gravadas pelo `arpac-controller`). O agente aceita o cabeçalho `[HANDOFF ARPA-C → ...]` da skill `/arpa-criminal` (`Caso:`, `Modo:`, `Etapa:`), mas a lista "Grave" do handoff nunca amplia os arquivos que ele pode gravar.
 
 ## 10 Sigilo e LGPD nos Dados
 

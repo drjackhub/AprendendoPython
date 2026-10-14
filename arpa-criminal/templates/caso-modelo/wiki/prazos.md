@@ -17,12 +17,12 @@ proxima_revisao_316: ""     # AAAA-MM-DD (limite da revisão nonagesimal, se pre
 
 # Painel de Prazos — <CASO>
 
-<!-- Escrita exclusiva do arpac-prazos-prescricao. Memória de cálculo completa em analise/03-prazos-prescricao.md. Contagem penal: art. 798 CPP (dias corridos); o art. 219 do CPC NÃO se aplica. -->
+<!-- Escrita exclusiva do arpac-prazos-prescricao. Memória de cálculo completa em analise/03-prazos-prescricao.md. Contagem penal: art. 798 CPP (dias corridos); o art. 219 do CPC NÃO se aplica. Semáforo da /prazos-penais: 🟢 mais de 5 dias; 🟡 3 a 5; 🔴 até 2, vencido ou réu preso com até 3. Data interna = termo final menos 1 dia útil (réu preso: menos 2). -->
 
 ## 1 Prazos em Curso
 
-| # | Ato / peça | Fundamento | Termo inicial (intimação) | Prazo (dias) | Termo final | Dias restantes | Status (EM CURSO / FATAL / VENCIDO / CUMPRIDO) | Fonte (id/fl.) | Confiança |
-|---|---|---|---|---|---|---|---|---|---|
+| # | Ato / peça | Fundamento | Termo inicial (intimação) | Prazo (dias) | Termo final | Data interna (segurança) | Dias restantes | Status (🟢 / 🟡 CURTO / 🔴 FATAL / VENCIDO / CUMPRIDO) | Fonte (id/fl.) | Confiança |
+|---|---|---|---|---|---|---|---|---|---|---|
 
 ## 2 Controles Recorrentes
 

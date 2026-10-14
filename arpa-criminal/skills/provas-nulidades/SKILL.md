@@ -96,7 +96,7 @@ Uma linha por prova relevante; ferramenta interna (não vai para a peça). Exemp
 | Substância periciada | Lacre do APF diverge do laudo (fls. __) | Arts. 158-A a 158-F | Quebra de rastreabilidade | Debate: inadmissibilidade × valoração | Laudo definitivo | Principal: inadmissibilidade; subsidiário: valoração nula (386, II/VII) |
 | Áudios interceptados | Prorrogações com decisão padronizada (fls. __) | Lei 9.296, art. 5º; art. 564, V | Falta de fundamentação concreta | Nulidade do período viciado | Provas colhidas no período e derivadas | Nulidade + desentranhamento + contraperícia |
 
-Regras: cada vício com fonte e confiança; coluna "Contaminação derivada" desenhada como árvore (prova-mãe → derivadas), indicando se a acusação pode alegar fonte independente (S/N + fl.); ordem de pedidos sempre principal → subsidiário; última linha: o que resta para materialidade e autoria após as exclusões.
+Regras: cada linha remete aos IDs F# de `wiki/fatos-atomicos.md`; cada vício com fonte e confiança; coluna "Contaminação derivada" desenhada como árvore (prova-mãe → derivadas), indicando se a acusação pode alegar fonte independente (S/N + fl.); ordem de pedidos sempre principal → subsidiário; última linha: o que resta para materialidade e autoria após as exclusões.
 
 ## 6. Checklist Obrigatório
 - [ ] Cada diligência foi reconstruída com o que se sabia ANTES de agir, com fonte e confiança?
@@ -114,8 +114,8 @@ Regras: cada vício com fonte e confiança; coluna "Contaminação derivada" des
 - [ ] Todo precedente marcado `[REQUER CONSULTA]` passou pelo `arpac-pesquisador` antes de ir para a peça?
 
 ## 7. Integração com o ARPA-C
-- **`arpac-auditor-autos` (M1)**: ao decompor os autos, registra em `wiki/fatos-atomicos.md` cada fato de obtenção de prova com fonte e confiança, e sinaliza em `analise/02-decomposicao.md` os "vícios aparentes" para esta skill. Não conclui pela ilicitude; apenas documenta.
-- **`arpac-estrategista` (M2/M3)**: lê `wiki/fatos-atomicos.md`, `wiki/cronologia.md` e `analise/02-decomposicao.md`; grava a **Matriz de Licitude** como seção de `analise/04-teses.md` e abre o ramo **ilicitude/nulidade** da árvore (tese principal, subsidiária, prova afetada, efeito sobre materialidade e autoria). No blueprint (`analise/06-blueprint.md`), as teses viram **preliminares** antes do mérito.
+- **`arpac-auditor-autos` (M1)**: na rotina `SCREEN_EVIDENCE_LEGALITY()`, registra em `wiki/fatos-atomicos.md` cada fato de obtenção de prova (ID F# estável, fonte e confiança), preenche a coluna "Vício / risco de ilicitude" da Matriz Processual Penal de Provas e lista os vícios aparentes na seção "6.1 Vícios (triagem para /provas-nulidades)" de `analise/02-decomposicao.md`. Documenta e alerta; a qualificação jurídica final é desta skill.
+- **`arpac-estrategista` (M2/M3)**: lê `wiki/fatos-atomicos.md`, `wiki/cronologia.md` e a seção 6.1 de `analise/02-decomposicao.md`; grava a **Matriz de Licitude** como seção de `analise/04-teses.md` e abre o ramo **ilicitude/nulidade** da árvore (tese principal, subsidiária, prova afetada, efeito sobre materialidade e autoria). No blueprint (`analise/06-blueprint.md`), as teses viram **preliminares** antes do mérito.
 - **`arpac-prazos-prescricao`**: recebe o alerta do momento de arguição (resposta à acusação, art. 571) para lançar em `wiki/prazos.md`.
 - **`arpac-pesquisador`**: verifica, via CoVe, todo precedente marcado nesta skill e grava o resultado em `analise/05-jurisprudencia.md`.
 - **`arpac-revisor` (M4)**: *red team* com a réplica previsível do MP (fonte independente, descoberta inevitável, boa-fé policial, ausência de prejuízo, preclusão) e do juiz.

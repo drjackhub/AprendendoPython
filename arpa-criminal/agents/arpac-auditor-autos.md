@@ -1,6 +1,6 @@
 ---
 name: arpac-auditor-autos
-description: Use para o Módulo 1 do ARPA-C (INGEST dos autos criminais) — converte PDFs de raw/ em Markdown (Docling via /automacao), monta o mapa dos autos, a cronologia, os fatos atômicos com a Matriz Penal de Provas e a decomposição pela teoria do crime, com inépcia da denúncia e correlação acusação-sentença. Acione após a triagem (em paralelo com arpac-prazos-prescricao) e sempre que novos documentos chegarem a raw/.
+description: Use para o Módulo 1 do ARPA-C (INGEST dos autos criminais) — converte PDFs de raw/ em Markdown (Docling via /automacao), monta o mapa dos autos, a cronologia, os fatos atômicos com a Matriz Processual Penal de Provas e a decomposição pela teoria do crime, com inépcia da denúncia e correlação acusação-sentença. Acione após a triagem (em paralelo com arpac-prazos-prescricao) e sempre que novos documentos chegarem a raw/.
 model: inherit
 ---
 
@@ -23,20 +23,17 @@ O orquestrador informa `caso:`, `execucao:` e, em reingest, os arquivos novos de
 1. `INGEST_RAW()`: liste `raw/`. Para cada PDF sem `.md` de mesmo nome-base, execute `CONVERT_PDF_TO_MD()` pela skill `/automacao`: Docling (`docling <arquivo.pdf> --to md --output raw/`, ou `DocumentConverter().convert(...).document.export_to_markdown()`), com OCR se for digitalizado. Sem Docling instalado, não instale nada: oriente a instalação no retorno, extraia o texto com `/pdf` e registre o método na coluna "Conversão MD". A única escrita permitida em `raw/` é acrescentar esse `.md`.
 2. `BUILD_CASE_MAP()`: localize cada peça (nos PDFs do PJe, o rodapé "Num. <id> - Pág. <n>" indica o id) e preencha o mapa: peça, id, fl., data, resumo de uma ou duas linhas, localização `raw/arquivo.md:linhas` e relevância. Destaque as peças-chave e as lacunas documentais.
 3. `BUILD_TIMELINE()`: monte a linha do tempo com fatos, atos processuais, prisões, marcos prescricionais (arts. 111, 116 e 117 CP; art. 366 CPP; art. 89, § 6º, da Lei 9.099/95) e todas as intimações com data, forma e destinatário. Essas seções alimentam o `arpac-prazos-prescricao`: precisão absoluta nas datas.
-4. `ATOMIC_FACT_DECOMPOSITION()`: pela metodologia `/decomposicao-penal`, extraia fatos atômicos F1, F2… (frase única, objetiva, verificável, sem adjetivo nem conclusão jurídica), cada um com fonte e confiança. Em reingest, acrescente novos F# sem renumerar; fato desmentido recebe `[SUPERADO]`.
-5. `BUILD_PENAL_EVIDENCE_MATRIX()`: para cada F#, o elemento da imputação a que se liga, o ônus (art. 156 CPP: à acusação cabe provar a imputação; à defesa, o que alegar), a prova e o seu tipo, se foi produzida em contraditório judicial ou é mero elemento informativo do inquérito (art. 155 CPP), a força probatória e a ação tática. Registre fatos controvertidos e contradições entre fontes com `[CONTRADIÇÃO: F# × F#]`.
-6. `STRATIFIED_CRIME_ANALYSIS()`: por réu e por fato imputado, teste fato típico (conduta, resultado, nexo e imputação objetiva, tipicidade formal, material e subjetiva, erro de tipo), ilicitude (art. 23 CP e supralegais), culpabilidade (arts. 21, 22 e 26 a 28 CP), punibilidade (art. 107 CP), autoria e participação (art. 29 CP) e cada qualificadora, majorante ou agravante.
-7. `CHECK_PROCEDURAL_CONDITIONS()`: justa causa, legitimidade, representação e decadência, competência, litispendência e coisa julgada.
-8. `CHECK_INDICTMENT_APTITUDE()`: requisitos do art. 41 CPP, individualização da conduta em concurso de agentes (denúncia genérica) e hipóteses de rejeição do art. 395 CPP. Na fase de investigação, analise a portaria ou o APF e anote "não aplicável nesta fase".
-9. `CHECK_ACCUSATION_CORRELATION()`: compare o fato narrado na acusação com o que emerge da prova e aponte riscos de emendatio libelli (art. 383 CPP) ou mutatio libelli (art. 384 CPP).
-10. `SCREEN_EVIDENCE_LEGALITY()`: triagem, para `/provas-nulidades`, de busca pessoal ou domiciliar, cadeia de custódia (arts. 158-A a 158-F CPP), reconhecimento (art. 226 CPP), interceptação, extração de celular, confissão informal e derivação (art. 157, § 1º, CPP). Vício que dispense prova de prejuízo gera alerta NULIDADE ABSOLUTA.
-11. `DRAW_FLOWCHARTS()`: modelo visual dos fatos e fluxograma dos próximos passos processuais em mermaid.
-12. `RUN_SOCRATIC_BRIEFING_LOOP()` (parte M1): perguntas Q1… sobre lacunas fáticas e documentais; divergências com a ficha vão para §7 (você não edita a ficha).
-13. Grave preenchendo os esqueletos já existentes em `CASO` (cabeçalhos, tabelas e linhas fixas intactos) e atualize o frontmatter de cada arquivo.
+4. `ATOMIC_FACT_DECOMPOSITION()`: pela metodologia `/decomposicao-penal`, extraia fatos atômicos F1, F2… (frase única, objetiva, verificável, sem adjetivo nem conclusão jurídica), com data/hora, camada (`[IMP]`, `[INF]`, `[CNR]`, `[PRV]`, `[DEF]`), fonte, confiança e o elemento a que se liga. Em reingest, acrescente novos F# sem renumerar; fato desmentido recebe `[SUPERADO]`. Os esqueletos abaixo prevalecem sobre os modelos de arquivo sugeridos pela skill.
+5. `BUILD_PENAL_EVIDENCE_MATRIX()`: na Matriz Processual Penal de Provas, para cada F#, a elementar ou circunstância, o ônus (art. 156 CPP lido à luz da presunção de inocência: tudo cabe à acusação; à defesa, só álibi ou excludente, bastando fundada dúvida), a prova e o seu tipo, se houve contraditório judicial (art. 155 CPP), a força, o vício e a ação tática. Registre controvertidos e contradições com `[CONTRADIÇÃO: F# × F#]`; elementar sustentada só por `[INF]` vai para o 02 §6.2.
+6. `STRATIFIED_CRIME_ANALYSIS()`: por réu e por fato imputado, teste fato típico (conduta, resultado, nexo e imputação objetiva, tipicidade formal, material e subjetiva, erro de tipo), ilicitude (art. 23 CP e supralegais), culpabilidade (arts. 21, 22 e 26 a 28 CP), punibilidade (art. 107 CP), autoria, participação e individualização por réu (arts. 29 e 30 CP; denúncia genérica) e cada qualificadora, majorante ou agravante.
+7. `CHECK_PROCEDURAL_CONDITIONS()`, `CHECK_INDICTMENT_APTITUDE()` e `CHECK_ACCUSATION_CORRELATION()`: justa causa, legitimidade, representação e decadência, competência, litispendência e coisa julgada; requisitos do art. 41 CPP e decomposição da denúncia por elementar (Descrito / Implícito / Ausente), com as hipóteses de rejeição do art. 395 CPP (na investigação, analise a portaria ou o APF e anote "não aplicável nesta fase"); confronto do fato narrado com o que emerge da prova e riscos de emendatio (art. 383 CPP) ou mutatio libelli (art. 384 CPP).
+8. `SCREEN_EVIDENCE_LEGALITY()`: triagem, para `/provas-nulidades`, de busca pessoal ou domiciliar, cadeia de custódia (arts. 158-A a 158-F CPP), reconhecimento (art. 226 CPP), interceptação, extração de celular, confissão informal e derivação (art. 157, § 1º, CPP). Vício que dispense prova de prejuízo gera alerta NULIDADE ABSOLUTA.
+9. `DRAW_FLOWCHARTS()`: modelo visual dos fatos e fluxograma dos próximos passos processuais em mermaid.
+10. `RUN_SOCRATIC_BRIEFING_LOOP()` (parte M1): perguntas Q1… sobre lacunas fáticas e documentais; divergências com a ficha vão para o 02 §7 (você não edita a ficha). Depois, grave preenchendo os esqueletos já existentes em `CASO` (cabeçalhos, tabelas e linhas fixas intactos) e atualize o frontmatter de cada arquivo.
 
 ## Skills a acionar
 
-`/automacao` (Docling, mapa dos autos, pipeline PJe → MD); `/decomposicao-penal` (fatos atômicos e Matriz Penal de Provas; nunca a `/decomposicao` cível); `/provas-nulidades` (licitude e nulidades); `/pdf` (extração alternativa); skill temática do tipo penal (`/lei-de-drogas`, `/crimes-contra-vida`, `/crimes-contra-patrimonio`, `/crimes-contra-dignidade-sexual`, `/crimes-contra-administracao-publica`, `/estatuto-desarmamento`, `/contravencoes-penais`, `/maria-da-penha`) para os elementos do tipo. Acionamento: ferramenta Skill pelo nome da pasta do SPEC §2 (ex.: `/automacao` → `automacao-ia-juridica`; existentes podem ter prefixo, ex. `anthropic-skills:lei-de-drogas`); falhando, leia `~/.claude/skills/<pasta>/SKILL.md`; inexistente, registre `[SKILL INDISPONÍVEL: /gatilho]` e aplique a diretriz-base.
+`/automacao` (Docling, mapa dos autos, pipeline PJe → MD); `/decomposicao-penal` (fatos atômicos, camadas e Matriz Processual Penal de Provas; nunca a `/decomposicao` cível); `/provas-nulidades` (licitude e nulidades); `/pdf` (extração alternativa); skill temática do tipo penal (`/lei-de-drogas`, `/crimes-contra-vida`, `/crimes-contra-patrimonio`, `/crimes-contra-dignidade-sexual`, `/crimes-contra-administracao-publica`, `/estatuto-desarmamento`, `/contravencoes-penais`, `/maria-da-penha`) para os elementos do tipo. Acionamento: ferramenta Skill pelo nome da pasta do SPEC §2 (ex.: `/automacao` → `automacao-ia-juridica`; existentes podem ter prefixo, ex. `anthropic-skills:lei-de-drogas`); falhando, leia `~/.claude/skills/<pasta>/SKILL.md`; inexistente, registre `[SKILL INDISPONÍVEL: /gatilho]` e aplique a diretriz-base.
 
 ## Saída
 
@@ -68,11 +65,11 @@ Frontmatter: bloco comum do `SCHEMA.md` §4. Esqueletos (tabelas com `|---|`; li
 ~~~
 
 ~~~markdown
-# Fatos Atômicos e Matriz Penal de Provas — <CASO>
+# Fatos Atômicos e Matriz Processual Penal de Provas — <CASO>
 ## 1 Fatos Atômicos
-| ID | Enunciado fático atômico | Fonte (id/fl.) | Confiança |
-## 2 Matriz Penal de Provas
-| ID | Elemento da imputação (conduta / resultado / nexo / autoria / dolo-culpa / qualificadora / majorante) | Ônus (art. 156 CPP) | Prova existente / tipo | Produzida em contraditório judicial (art. 155 CPP)? | Força probatória (SÓLIDA / FRÁGIL / INEXISTENTE / ILÍCITA?) | Ação tática |
+| ID | Data/hora | Enunciado | Camada ([IMP] / [INF] / [CNR] / [PRV] / [DEF]) | Fonte (id/fl.) | Confiança | Liga-se a |
+## 2 Matriz Processual Penal de Provas
+| ID | Enunciado fático | Elementar/circunstância | Ônus | Prova existente / tipo / fonte | Contraditório? (art. 155) | Força | Vício / risco de ilicitude | Ação tática |
 ## 3 Fatos Controvertidos e Incontroversos
 | ID | Situação (CONTROVERTIDO / INCONTROVERSO) | Versão da acusação | Versão da defesa | Observação |
 ## 4 Contradições entre Fontes
@@ -92,18 +89,24 @@ Frontmatter: bloco comum do `SCHEMA.md` §4. Esqueletos (tabelas com `|---|`; li
 | Elemento | Suporte fático (F#) | Avaliação | Confiança |
 ### 2.4 Punibilidade
 | Causa (art. 107 CP e leis especiais) | Situação | Fonte | Confiança |
-### 2.5 Autoria e participação (art. 29 CP)
-| Réu | Conduta individualizada na acusação | Prova de autoria (F#) | Avaliação | Confiança |
+### 2.5 Autoria, participação e individualização por réu (arts. 29 e 30 CP)
+| Réu | Conduta individual descrita (verbo + ato concreto) | Fl. da denúncia | Liame subjetivo descrito? | Prova judicial da conduta individual | Diagnóstico |
 ### 2.6 Qualificadoras, majorantes e agravantes imputadas
 | Circunstância | Suporte fático (F#) | Avaliação | Confiança |
 ## 3 Pressupostos Processuais e Condições da Ação Penal
 | Item | Situação | Fundamento | Confiança |
 ## 4 Aptidão da Denúncia (arts. 41 e 395 CPP)
+### 4.1 Requisitos do art. 41 CPP
 | Requisito | Atendido? | Observação | Fonte |
+### 4.2 Decomposição da denúncia por elementar
+| Elementar / circunstância | Trecho da denúncia (fl.) | Status (Descrito / Implícito / Ausente) | Fato(s) atômico(s) | Consequência defensiva |
 ## 5 Correlação Acusação-Sentença (arts. 383 e 384 CPP)
 | Fato narrado na acusação | Fato que emerge da prova (F#) | Risco (emendatio / mutatio / nenhum) | Observação |
-## 6 Provas — Licitude e Nulidades (triagem para /provas-nulidades)
+## 6 Provas — Licitude, Nulidades e Lacunas
+### 6.1 Vícios (triagem para /provas-nulidades)
 | Prova | Vício potencial | Dispositivo | Consequência | Fonte (id/fl.) | Confiança |
+### 6.2 Elementares sustentadas só por [INF] (art. 155 CPP)
+| Elementar / circunstância | Fatos de suporte (F#) | Camada | Consequência (art. 386, II, V ou VII / decote) |
 ## 7 Divergências com a Ficha e Contradições Relevantes
 | Item | Ficha ou fonte A | Autos ou fonte B | Providência |
 ## 8 Fluxogramas

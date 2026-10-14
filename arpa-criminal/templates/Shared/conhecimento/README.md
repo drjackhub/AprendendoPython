@@ -20,20 +20,20 @@ Os nomes definitivos dos cadernos e as perguntas-padrão de cada um estão em `n
 
 ## 2 Como Gerar um Export
 
-Abra o caderno no NotebookLM, faça as perguntas-padrão listadas em `notebooklm/cadernos.md` e cole cada resposta, com as citações das fontes, como uma seção do arquivo correspondente. Use o esqueleto abaixo.
+Abra o caderno no NotebookLM, faça as perguntas-padrão listadas em `notebooklm/cadernos.md` e cole cada resposta, com as citações das fontes, como uma seção do arquivo correspondente, identificada pelo código da pergunta (AUT-01, PES-03, PROC-01, ESC-02…). Comentários do escritório vão em blocos `> Nota:` separados da resposta. Antes de substituir um export, guarde a versão anterior em `Shared/conhecimento/_historico/<arquivo>-AAAA-MM-DD.md`. Use o esqueleto abaixo.
 
 ```markdown
 ---
 caderno: "GESTÃO DE PROCESSOS"
 nome_no_notebooklm: ""
 exportado_em: AAAA-MM-DD
-exportado_por: ""            # iniciais
+exportado_por: ""            # iniciais, ou "arpac-controller (MCP)"
 fontes_do_caderno: 0
 ---
 
 # Export — GESTÃO DE PROCESSOS
 
-## P1 <pergunta-padrão, copiada literalmente>
+## PROC-01 <pergunta-padrão, copiada literalmente>
 
 <resposta do NotebookLM, com as citações [n] preservadas>
 
@@ -42,4 +42,4 @@ Fontes citadas: [n] <título da fonte>; [n] <título da fonte>
 
 ## 3 Regras de Uso pela IA
 
-A IA cita trechos desta pasta como `[NotebookLM: <caderno> — export de AAAA-MM-DD, P<n>]`. Export com mais de 180 dias deve ser sinalizado como possivelmente desatualizado no retorno do agente. Esta pasta contém conhecimento de gestão, não dados de clientes: nunca grave aqui informação de caso concreto. Conteúdo jurídico vindo do NotebookLM não dispensa a verificação de precedentes pelo `arpac-pesquisador`.
+A IA cita trechos desta pasta como `[NotebookLM: <caderno> — export de AAAA-MM-DD, <código>]` e, quando a resposta vier direto do MCP, como `[NotebookLM: <caderno>]`. A IA só grava nesta pasta depois do "Aprovado" do Douglas; sem ele, quem grava é uma pessoa da equipe. Export com mais de 180 dias deve ser sinalizado como possivelmente desatualizado no retorno do agente. Esta pasta contém conhecimento de gestão, não dados de clientes: nunca grave aqui informação de caso concreto. Conteúdo jurídico vindo do NotebookLM não dispensa a verificação de precedentes pelo `arpac-pesquisador`.

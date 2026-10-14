@@ -12,19 +12,19 @@ alertas: []
 tags: []
 ---
 
-# Fatos Atômicos e Matriz Penal de Provas — <CASO>
+# Fatos Atômicos e Matriz Processual Penal de Provas — <CASO>
 
-<!-- Metodologia /decomposicao-penal. Um fato atômico = frase única, objetiva, verificável, sem adjetivo nem conclusão jurídica. IDs F1, F2... são estáveis: nunca renumerar; fato descartado recebe [SUPERADO]. Colunas extras exigidas pela skill entram à direita, sem remover as obrigatórias. -->
+<!-- Metodologia /decomposicao-penal. Um fato atômico = frase única, objetiva, verificável, sem adjetivo nem conclusão jurídica. IDs F1, F2... são estáveis: nunca renumerar; fato descartado recebe [SUPERADO]. Camadas: [IMP] imputado, [INF] elemento informativo do inquérito, [CNR] prova cautelar, não repetível ou antecipada, [PRV] prova judicial, [DEF] fato defensivo. Força: SÓLIDA / FRÁGIL / INEXISTENTE. Ônus: acusação, salvo álibi ou excludente (fundada dúvida basta, art. 386, VI, CPP). -->
 
 ## 1 Fatos Atômicos
 
-| ID | Enunciado fático atômico | Fonte (id/fl.) | Confiança |
-|---|---|---|---|
-
-## 2 Matriz Penal de Provas
-
-| ID | Elemento da imputação (conduta / resultado / nexo / autoria / dolo-culpa / qualificadora / majorante) | Ônus (art. 156 CPP) | Prova existente / tipo | Produzida em contraditório judicial (art. 155 CPP)? | Força probatória (SÓLIDA / FRÁGIL / INEXISTENTE / ILÍCITA?) | Ação tática |
+| ID | Data/hora | Enunciado | Camada ([IMP] / [INF] / [CNR] / [PRV] / [DEF]) | Fonte (id/fl.) | Confiança | Liga-se a |
 |---|---|---|---|---|---|---|
+
+## 2 Matriz Processual Penal de Provas
+
+| ID | Enunciado fático | Elementar/circunstância | Ônus | Prova existente / tipo / fonte | Contraditório? (art. 155) | Força | Vício / risco de ilicitude | Ação tática |
+|---|---|---|---|---|---|---|---|---|
 
 ## 3 Fatos Controvertidos e Incontroversos
 
