@@ -1,6 +1,6 @@
 ---
 name: prazos-penais
-description: Manual lógico de auditoria e contagem de prazos processuais penais (versão criminal do /prazos cível). Aplica os prazos contínuos e peremptórios do art. 798 do CPP (exclusão do dia do começo, prorrogação em domingo e feriado), as Súmulas 310 e 710 do STF, a suspensão de 20 de dezembro a 20 de janeiro do art. 798-A do CPP e suas exceções (réu preso, Maria da Penha, medidas urgentes), a intimação por DJe, portal eletrônico e intimação pessoal do MP, da Defensoria Pública (prazo em dobro, LC 80/94) e do defensor dativo, e a tabela de prazos de inquérito, denúncia, resposta à acusação, defesa prévia da Lei de Drogas, memoriais, RESE, apelação, embargos de declaração, embargos infringentes, carta testemunhável, REsp, RE, agravos, recurso ordinário em HC, JECRIM, agravo em execução (LEP) e ECA. Afasta expressamente o art. 219 do CPC (dias úteis) no processo penal. Ative com /prazos-penais ou quando o usuário perguntar até quando pode recorrer, calcular tempestividade criminal, prazo de resposta à acusação, prazo da apelação criminal, perdeu o prazo, intimação na sexta-feira, recesso de fim de ano no crime, prazo do réu preso, excesso de prazo do inquérito ou revisão nonagesimal da preventiva. Alimenta o agente arpac-prazos-prescricao (wiki/prazos.md e alerta PRAZO FATAL).
+description: Manual lógico de auditoria e contagem de prazos processuais penais (versão criminal do /prazos cível). Aplica os prazos contínuos e peremptórios do art. 798 do CPP, as Súmulas 310 e 710 do STF, a suspensão de 20/12 a 20/01 do art. 798-A e suas exceções (réu preso, Maria da Penha, medidas urgentes), as regras de intimação (DJe, portal eletrônico, intimação pessoal do MP, da Defensoria com prazo em dobro e do dativo) e a tabela de prazos do inquérito aos Tribunais Superiores, inclusive JECRIM, LEP e ECA. Afasta o art. 219 do CPC (dias úteis) no processo penal. Ative com /prazos-penais ou quando o usuário perguntar até quando pode recorrer, tempestividade criminal, prazo de resposta à acusação ou de apelação, perdeu o prazo, intimação na sexta-feira, recesso de fim de ano no crime, prazo do réu preso, excesso de prazo do inquérito ou revisão nonagesimal da preventiva. Alimenta o arpac-prazos-prescricao (wiki/prazos.md e alertas PRAZO FATAL e REVISÃO 90 DIAS).
 ---
 # 📅 Habilidade: Auditoria e Contagem de Prazos Processuais Penais (/prazos-penais)
 
@@ -116,7 +116,8 @@ ENTRADA: ato, meio_comunicacao, data_comunicacao, prazo, unidade (dias|horas),
 7. VENCIMENTO: se cair em sábado, domingo, feriado (nacional, PE, Timbaúba, portaria TJPE) ou indisponibilidade do PJe → 1º dia útil seguinte (art. 798, § 3º).
 8. SEGURANÇA: data_interna = termo final − 1 dia útil (réu preso: − 2 dias úteis).
 9. STATUS: dias_restantes = termo final − hoje → 🟢 > 5 | 🟡 3 a 5 | 🔴 ≤ 2, vencido ou réu preso com ≤ 3.
-SAÍDA: linha em wiki/prazos.md + alerta PRAZO FATAL se 🔴.
+SAÍDA: linha em wiki/prazos.md §1 + alerta PRAZO FATAL se 🔴, PRAZO CURTO se 🟡, PRAZO VENCIDO se vencido sem ato;
+       revisão do art. 316, p.ú., vencida ou com limite em até 10 dias → REVISÃO 90 DIAS (SCHEMA §7).
 ```
 **Exemplo 1 (Súmula 310)**: defensor intimado pessoalmente da sentença na sexta, 16/10/2026. Apelação (5 dias): dia 1 = segunda 19/10; termo final = **sexta 23/10/2026**.
 **Exemplo 2 (vencimento no sábado)**: razões de RESE (2 dias) a partir de interposição na quinta 05/11/2026: dia 1 = 06/11 (sexta), dia 2 = 07/11 (sábado) → prorroga para **segunda 09/11/2026**.
@@ -142,22 +143,36 @@ SAÍDA: linha em wiki/prazos.md + alerta PRAZO FATAL se 🔴.
 ---
 
 ## 🗂️ 7. Integração ARPA-C (arquivos e agentes)
-* **Agente executor**: `arpac-prazos-prescricao` (M1, em paralelo com `arpac-auditor-autos`; no modo **Urgente**, roda **primeiro**). Lê `wiki/cronologia.md`, `wiki/ficha.md` e `Shared/calendario.md`; escreve `wiki/prazos.md` e a **Parte I — Prazos** de `analise/03-prazos-prescricao.md` (a Parte II é da skill `/prescricao`).
+* **Agente executor**: `arpac-prazos-prescricao` (M1, em paralelo com `arpac-auditor-autos`; no modo **Urgente**, roda **primeiro**). Lê `wiki/cronologia.md`, `wiki/ficha.md` e `Shared/calendario.md`; escreve `wiki/prazos.md` e a **Parte I — Prazos** de `analise/03-prazos-prescricao.md` (§1 a §4 e as linhas de prazo do §6; a Parte II, §5, é da skill `/prescricao`).
 * **Consumidores**: orquestrador `/arpa-criminal` (define o modo de execução), `arpac-controller` (etiqueta `#prazo-fatal` e coluna do Kanban em `Shared/painel-casos.md`), `arpac-redator` (data-limite de entrega da minuta). A IA **nunca protocola** (Portão 3).
+* **Formato**: os esqueletos de `caso-modelo/` (e do agente `arpac-prazos-prescricao`) prevalecem; abaixo, os mesmos títulos e colunas, com frontmatter comum do SCHEMA §4 mais `prazo_mais_proximo`, `prescricao_data_limite` e `proxima_revisao_316`.
 
-**Modelo de `wiki/prazos.md`**:
+**Modelo de `wiki/prazos.md`** (exemplo com data de referência 21/10/2026):
 ```markdown
-# Prazos — <CNJ/apelido> (auditado em AAAA-MM-DD por arpac-prazos-prescricao)
-> 🔴 PRAZO FATAL: Apelação vence em 23/10/2026 (sexta) — restam 2 dias — RÉU PRESO — data interna: 21/10/2026
-| Prazo | Fundamento | Termo inicial | Termo final | Dias restantes | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Apelação (interposição) | CPP, art. 593 | 19/10/2026 (intimação pessoal em 16/10, sexta — Súm. 310 STF) | 23/10/2026 | 2 | 🔴 |
-| Razões de apelação | CPP, art. 600 (ou § 4º) | [PENDENTE: intimação para razões] | — | — | 🟢 |
-| Revisão nonagesimal da preventiva | CPP, art. 316, p.ú. | 10/08/2026 (última revisão) | 08/11/2026 (domingo; prazo do juízo — provocar antes) | 18 | 🟢 |
-## Premissas e pendências
-- Fonte da intimação: certidão id [PENDENTE], fl. [PENDENTE] — confiança MÉDIA
+# Painel de Prazos — <CASO>
+## 1 Prazos em Curso
+| # | Ato / peça | Fundamento | Termo inicial (intimação) | Prazo (dias) | Termo final | Data interna (segurança) | Dias restantes | Status (🟢 / 🟡 CURTO / 🔴 FATAL / VENCIDO / CUMPRIDO) | Fonte (id/fl.) | Confiança |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Apelação (interposição) | CPP, art. 593 | 16/10/2026, sexta, intimação pessoal (Súm. 310 STF: dia 1 = 19/10) | 5 | 23/10/2026 | 21/10/2026 (réu preso: − 2 dias úteis) | 2 | 🔴 FATAL | certidão id [PENDENTE], fl. [PENDENTE] | MÉDIA |
+| 2 | Razões de apelação | CPP, art. 600 (ou § 4º) | [PENDENTE: intimação para razões] | 8 | — | — | — | 🟢 | — | — |
+## 2 Controles Recorrentes
+| Controle | Último ato (data) | Próximo limite | Fundamento | Status |
+|---|---|---|---|---|
+| Revisão nonagesimal da preventiva | 10/08/2026 (última revisão) | 08/11/2026 (domingo; prazo do juízo — provocar antes) | art. 316, p.ú., CPP | 🟢 (18 dias; REVISÃO 90 DIAS a partir de 29/10/2026) |
+| Prazo do inquérito com investigado preso | | | art. 10 CPP / lei especial | |
+| Duração da instrução (excesso de prazo) | | | razoabilidade / art. 5º, LXXVIII, CF | |
+| Vigência de medidas protetivas ou cautelares | | | | |
+## 3 Prescrição — Resumo
+| Modalidade | Pena de referência | Prazo (art. 109 CP) | Marco inicial | Data-limite | Status |
+|---|---|---|---|---|---|
+## 4 Alertas Ativos
+| Alerta | Descrição | Data-limite | Ação requerida |
+|---|---|---|---|
+| PRAZO FATAL | Apelação — restam 2 dias — RÉU PRESO | 23/10/2026 | protocolar até a data interna 21/10/2026 |
 ```
-**Alerta no resumo ao orquestrador** (≤ 15 linhas): `🔴 PRAZO FATAL — <ato> — vence <data> — restam <n> dias — <RÉU PRESO?>`. Mais de um prazo 🔴: ordenar do mais próximo ao mais distante.
+**Modelo da Parte I de `analise/03-prazos-prescricao.md`**: `## 1 Premissas de Contagem (Parte I — Prazos, /prazos-penais)` com `| Premissa | Aplicação no caso | Fonte |` (linhas fixas do caso-modelo: art. 798, caput e § 1º; art. 798, § 3º; Súmula 710; Súmula 310; art. 798-A; feriados locais; regra especial do rito); `## 2 Tabela de Cálculo de Prazos` com `| # | Ato | Fundamento legal | Data da intimação | Primeiro dia da contagem | Prazo (dias) | Vencimento bruto | Ajuste (fim de semana / feriado / suspensão) | Vencimento final | Fonte (id/fl.) | Confiança |`; `## 3 Memória de Cálculo` com uma subseção `### Prazo n — <ato>` por linha da tabela 2; `## 4 Status Prisional e Controles Temporais` com `| Controle | Data-base | Limite | Situação | Fundamento |`; alertas de prazo na tabela `## 6 Alertas` (`| Alerta | Gatilho | Data-limite | Ação requerida |`) e perguntas em `## 7 Perguntas Socráticas (M1 — prazos)` (`Q#`, prioridade CRÍTICA / ALTA / COMPLEMENTAR).
+
+**Alerta no retorno ao orquestrador** (bloco RETORNO do `arpac-prazos-prescricao`, ≤ 15 linhas): `ALERTAS: [PRAZO FATAL < 48h] [PRAZO CURTO] [REVISÃO 90 DIAS] …, com datas` e `PRAZO MAIS PRÓXIMO: <ato> — vence <DD/MM/AAAA> (<n> dias) — confiança <nível>`. Mais de um prazo 🔴: ordenar do mais próximo ao mais distante.
 
 ---
 

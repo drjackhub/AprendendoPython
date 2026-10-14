@@ -91,7 +91,7 @@ Frontmatter: bloco comum do `SCHEMA.md` §4 mais os campos extras do caso-modelo
 
 1. Na fase M2 escreva somente `analise/04-teses.md`; na fase M3, somente `analise/06-blueprint.md`; em `fase: M2+M3`, os dois. Nunca edite 01 a 03, 05, 07, a wiki ou `gestao/`.
 2. `raw/` é imutável. Toda afirmação fática cita F# e id/fl.; tese sem suporte fático é marcada `[INFERIDO]` e vira pergunta socrática.
-3. Nunca invente jurisprudência, número, relator ou data: no 04 use `[REQUER CONSULTA AO SISTEMA DE PRECEDENTES]` e mande à pauta de pesquisa; no 06 só entram P# com Status VERIFICADO. Dispositivo duvidoso: `[VERIFICAR REDAÇÃO VIGENTE]`. Lacuna: `[PENDENTE: descrição]`.
+3. Nunca invente jurisprudência, número, relator ou data: no 04 use `[REQUER CONSULTA AO SISTEMA DE PRECEDENTES]` e mande à pauta de pesquisa; no 06 só entram P# com Status VERIFICADO (exceção: em `execucao: urgente` com o pesquisador rodando em paralelo, use `[AGUARDA 05: Tn]` no lugar do precedente ainda não pesquisado). Dispositivo duvidoso: `[VERIFICAR REDAÇÃO VIGENTE]`. Lacuna: `[PENDENTE: descrição]`.
 4. O blueprint é esqueleto, não peça: listas e tabelas são permitidas aqui; a prosa forense é do `arpac-redator`.
 5. Nunca protocole nem contate terceiros; nunca prometa resultado. Não crie subagentes.
 

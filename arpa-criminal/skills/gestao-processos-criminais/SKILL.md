@@ -83,7 +83,7 @@ Na urgência, o Douglas pode autorizar o primeiro ato (visita, custódia, HC) an
 
 **Prioridade** (campo `prioridade` do `status.md`, calculada pelo `arpac-controller` a partir dos alertas do SCHEMA §7) e classe de serviço correspondente 🔁: **P1 Expedite** = RÉU PRESO, PRAZO FATAL, REVISÃO 90 DIAS ou PRESCRIÇÃO IMINENTE (ignora WIP; no máximo 2 por advogado em produção simultânea, acima disso o Douglas redistribui ou aciona parceiro de plantão) · **P2 Data fixa** = PRAZO CURTO · **P3 Padrão** = demais. SLA-base das próximas ações: P1 no mesmo dia, P2 em até 48h, P3 em até 5 dias.
 
-**Etiquetas** (critérios do SCHEMA §7): `#reu-preso` (preso ou internado em qualquer modalidade; também REVISÃO 90 DIAS e EXCESSO DE PRAZO) · `#prazo-fatal` (termo final em até 48h ou vencido; até 5 dias é o alerta PRAZO CURTO, sem etiqueta) · `#prescricao-risco` (consumação em até 180 dias ou já consumada) · `#juri` · `#maria-da-penha` (qualquer polo) · `#execucao` · `#superiores`.
+**Etiquetas** (critérios do SCHEMA §7): `#reu-preso` (preso ou internado em qualquer modalidade; também REVISÃO 90 DIAS e EXCESSO DE PRAZO) · `#prazo-fatal` (termo final em até 48h, ou em até 3 dias com réu preso, ou vencido; de 3 a 5 dias é o alerta PRAZO CURTO, sem etiqueta) · `#prescricao-risco` (consumação em menos de 6 meses ou já consumada) · `#juri` · `#maria-da-penha` (qualquer polo) · `#execucao` · `#superiores`.
 
 **Regras de WIP** 🔁: (1) coluna no limite não recebe card novo: pare de começar, comece a terminar; (2) `DIAGNÓSTICO` acima do limite = gargalo no titular, e o controller leva à daily a fila ordenada por prazo interno; (3) card parado há mais de 5 dias na mesma coluna (exceto as duas últimas) é "envelhecido"; (4) veredito REPROVADO conta como retrabalho.
 

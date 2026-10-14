@@ -1,6 +1,6 @@
 ---
 name: dosimetria-prescricao
-description: Manual de cálculo e auditoria da pena e da prescrição penal. (a) Dosimetria trifásica do art. 68 do CP (pena-base pelas oito circunstâncias judiciais do art. 59, agravantes e atenuantes dos arts. 61 a 66, causas de aumento e diminuição), Súmulas 231, 241, 444, 443, 545 e 630 do STJ, reincidência e período depurador (arts. 63 e 64), tráfico privilegiado (art. 33, § 4º, Lei 11.343/06), regime inicial (art. 33 CP, Súmulas 718 e 719 STF, 269 e 440 STJ), detração (art. 387, § 2º, CPP), substituição por restritivas de direitos (art. 44), sursis (art. 77), concurso material, formal e crime continuado (arts. 69 a 71) e planilha-modelo. (b) Prescrição da pretensão punitiva em abstrato, retroativa e superveniente (arts. 109 e 110, § 1º, Lei 12.234/2010), pretensão executória (arts. 110 e 112), redução pela metade (art. 115), causas interruptivas (art. 117) e suspensivas (art. 116, ANPP; art. 366 CPP e Súmula 415 STJ), Súmulas 438 e 220 STJ, art. 119 e crimes imprescritíveis, com o algoritmo CALCULAR_PRESCRICAO() e alerta PRESCRIÇÃO IMINENTE. Ative com /dosimetria ou /prescricao, ou quando o usuário pedir para calcular pena, revisar dosimetria da sentença, atacar pena-base, regime, substituição, sursis, continuidade delitiva, extinção da punibilidade, prescrição retroativa, intercorrente ou executória. Alimenta os agentes arpac-prazos-prescricao (analise/03-prazos-prescricao.md) e arpac-estrategista (teses subsidiárias de pena).
+description: Cálculo e auditoria da pena e da prescrição penal. (a) Dosimetria trifásica do art. 68 do CP (art. 59, agravantes, atenuantes, majorantes e minorantes), Súmulas 231, 241, 444 e 545 do STJ, reincidência e período depurador, tráfico privilegiado, regime inicial (Súmulas 718 e 719 STF), detração (art. 387, § 2º, CPP), substituição (art. 44), sursis (art. 77) e concurso de crimes, com planilha-modelo. (b) Prescrição punitiva (abstrata, retroativa, superveniente) e executória (arts. 109 a 119 CP), art. 115, marcos do art. 117, suspensões (art. 116; art. 366 CPP), Súmulas 438 e 220 STJ, com CALCULAR_PRESCRICAO() e alerta PRESCRIÇÃO IMINENTE. Ative com /dosimetria ou /prescricao, ou quando o usuário pedir para calcular pena, revisar dosimetria, atacar pena-base ou regime, substituição, sursis, continuidade delitiva, extinção da punibilidade ou prescrição retroativa, intercorrente ou executória. Alimenta o arpac-prazos-prescricao (analise/03-prazos-prescricao.md) e o arpac-estrategista (teses de pena).
 ---
 # ⚖️ Habilidade: Dosimetria da Pena e Prescrição Penal (/dosimetria · /prescricao)
 
@@ -109,7 +109,7 @@ Restritivas de direitos: mesmos prazos (art. 109, p.ú.). Multa: 2 anos quando �
 * **Termo inicial da PPE** (art. 112, I): o STF, em repercussão geral, reinterpretou o dispositivo para exigir trânsito para ambas as partes, com modulação `[REQUER CONSULTA AO SISTEMA DE PRECEDENTES]`.
 
 ### B.3 Causas interruptivas (art. 117) e suspensivas
-* **Interrupção** (art. 117): I – recebimento da denúncia ou queixa (o acórdão que provê recurso contra a rejeição vale como recebimento, salvo nula a decisão de primeiro grau — STF, Súmula 709); II – pronúncia (interrompe ainda que o Júri desclassifique — STJ, Súmula 191); III – decisão confirmatória da pronúncia; IV – publicação da sentença ou acórdão condenatórios recorríveis (sentença publicada em mão do escrivão — CPP, art. 389; acórdão confirmatório também interrompe — STF, HC 176.473/RR, Plenário, conferir via `/jurisprudencia`); V – início ou continuação do cumprimento da pena; VI – reincidência. Efeitos: salvo V e VI, a interrupção alcança todos os autores e os crimes conexos do mesmo processo (§ 1º); salvo V, o prazo recomeça integralmente do dia da interrupção (§ 2º).
+* **Interrupção** (art. 117): I – recebimento da denúncia ou queixa (o acórdão que provê recurso contra a rejeição vale como recebimento, salvo nula a decisão de primeiro grau — STF, Súmula 709); II – pronúncia (interrompe ainda que o Júri desclassifique — STJ, Súmula 191); III – decisão confirmatória da pronúncia; IV – publicação da sentença ou acórdão condenatórios recorríveis (sentença publicada em mão do escrivão — CPP, art. 389; acórdão confirmatório também interrompe — STF, HC 176.473/RR, Plenário `[REQUER CONSULTA AO SISTEMA DE PRECEDENTES]`, conferir via `/jurisprudencia`); V – início ou continuação do cumprimento da pena; VI – reincidência. Efeitos: salvo V e VI, a interrupção alcança todos os autores e os crimes conexos do mesmo processo (§ 1º); salvo V, o prazo recomeça integralmente do dia da interrupção (§ 2º).
 * **Suspensão** (art. 116, redação da Lei 13.964/2019 `[VERIFICAR REDAÇÃO VIGENTE]`): I – questão prejudicial em outro processo; II – cumprimento de pena no exterior; III – pendência de embargos de declaração ou de recursos aos Tribunais Superiores, **quando inadmissíveis**; IV – enquanto não cumprido ou não rescindido o ANPP. Após o trânsito, não corre enquanto o condenado estiver preso por outro motivo (p.ú.).
 * **Outras**: citação por edital sem comparecimento nem advogado (CPP, art. 366), pelo máximo do prazo regulado pela pena máxima cominada (STJ, Súmula 415); carta rogatória (CPP, art. 368); sursis processual (Lei 9.099/95, art. 89, § 6º); colaboração premiada (Lei 12.850/13, art. 4º, § 3º) e parcelamento tributário `[VERIFICAR REDAÇÃO VIGENTE]`.
 
@@ -144,20 +144,37 @@ SAÍDA: Parte II de analise/03-prazos-prescricao.md + alerta ao orquestrador.
 **Exemplo (abstrata, art. 115)**: furto simples (CP, art. 155, caput: 1 a 4 anos), agente com 19 anos no fato → 8 anos (art. 109, IV) ÷ 2 = 4 anos. Fato em 15/01/2021; data-limite 14/01/2025; denúncia recebida em 20/02/2025 → ⚫ prescrição consumada antes do recebimento → extinção da punibilidade (CP, art. 107, IV) já na resposta à acusação (CPP, art. 397, IV).
 **Exemplo (retroativa)**: mesmo crime, agente adulto, pena aplicada de 1 ano, sem recurso do MP → 4 anos (art. 109, V). Recebimento em 10/03/2021; data-limite 09/03/2025; sentença publicada em 20/05/2025 → ⚫ prescrição retroativa.
 
-**Modelo da Parte II de `analise/03-prazos-prescricao.md`**:
+**Modelo da Parte II de `analise/03-prazos-prescricao.md`** (§5 e linhas de prescrição do §6; títulos e colunas idênticos aos de `caso-modelo/analise/03-prazos-prescricao.md`, que prevalece; exemplo com `data_de_referencia` 14/10/2026):
 ```markdown
-## Parte II — Prescrição (auditada em AAAA-MM-DD por arpac-prazos-prescricao)
-> 🔴 PRESCRIÇÃO IMINENTE: Crime 1 (CP, art. 155, caput) — data-limite 09/03/2027 — restam 4 meses e 23 dias
-| Crime | Pena de referência | Espécie | Prazo (art. 109) | Art. 115 | Prazo final | Intervalo crítico | Data-limite | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Furto simples | 4 anos (máx.) | Abstrata | 8 anos (IV) | Sim (19 anos no fato) | 4 anos | Recebimento 10/03/2023 → sentença [PENDENTE] | 09/03/2027 | 🔴 |
-### Marcos e intervalos
+## 5 Prescrição (Parte II — /prescricao)
+### 5.1 Dados de base
+| Dado | Valor | Fonte (id/fl.) | Confiança |
+|---|---|---|---|
+| Data do fato / termo inicial (art. 111 CP) | | | |
+| Data de nascimento do réu | | | |
+| Menor de 21 na data do fato ou maior de 70 na data da sentença (art. 115 CP) | Sim (19 anos no fato) | | |
+| Reincidência reconhecida (art. 110, caput, CP — só na executória; STJ, Súmula 220) | | | |
+| Pena máxima em abstrato (com majorantes no máximo e minorantes no mínimo) | 4 anos | | |
+| Pena em concreto (se houver sentença) e trânsito para a acusação | | | |
+| Concurso de crimes (art. 119 CP) / crime continuado (STF, Súmula 497) | | | |
+### 5.2 Quadro da prescrição por crime e espécie
+| Crime | Pena de referência | Espécie (abstrata / retroativa / superveniente / executória) | Prazo (art. 109) | Art. 115 | Prazo final | Intervalo crítico | Data-limite | Status (🟢 / 🟡 / 🔴 IMINENTE / ⚫ CONSUMADA) |
+|---|---|---|---|---|---|---|---|---|
+| Furto simples (CP, art. 155, caput) | 4 anos (máx.) | abstrata | 8 anos (IV) | Sim | 4 anos | Recebimento 10/03/2023 → sentença [PENDENTE] | 09/03/2027 | 🔴 IMINENTE |
+### 5.3 Marcos e intervalos
 | Intervalo | De | Até | Duração | Suspensões | Prazo | Prescreveu? | Fonte (id/fl.) | Confiança |
+|---|---|---|---|---|---|---|---|---|
+### 5.4 Conclusão e data-limite crítica
+<prosa curta: consumada? data mais próxima de consumação; STJ, Súmula 438>
+## 6 Alertas
+| Alerta | Gatilho | Data-limite | Ação requerida |
+|---|---|---|---|
+| PRESCRIÇÃO IMINENTE | consumação em menos de 6 meses (restam 4 meses e 23 dias) | 09/03/2027 | monitorar os marcos do art. 117 e, consumada, requerer a extinção da punibilidade (CP, art. 107, IV); no polo acusatório, pedir celeridade |
 ```
 
 ---
 ## 🗂️ Integração ARPA-C (arquivos e agentes)
-* **`/prescricao`** → agente `arpac-prazos-prescricao` (M1): lê `wiki/cronologia.md` e `wiki/ficha.md` (nascimento, FAC, prisões); escreve a **Parte II** de `analise/03-prazos-prescricao.md` (a Parte I é de `/prazos-penais`). Alerta `PRESCRIÇÃO IMINENTE` ou `PRESCRIÇÃO CONSUMADA` no resumo ao orquestrador; o `arpac-controller` aplica a etiqueta `#prescricao-risco` em `Shared/painel-casos.md`.
+* **`/prescricao`** → agente `arpac-prazos-prescricao` (M1): lê `wiki/cronologia.md` e `wiki/ficha.md` (nascimento, FAC, prisões); escreve a **Parte II** de `analise/03-prazos-prescricao.md` (§5 e as linhas de prescrição do §6; a Parte I, §1 a §4, é de `/prazos-penais`) e o resumo de `wiki/prazos.md` §3. Alerta `PRESCRIÇÃO IMINENTE` ou `PRESCRIÇÃO CONSUMADA` no resumo ao orquestrador; o `arpac-controller` aplica a etiqueta `#prescricao-risco` em `Shared/painel-casos.md`.
 * **`/dosimetria`** → `arpac-estrategista` (teses subsidiárias de pena em `analise/04-teses.md` e tópico de dosimetria em `analise/06-blueprint.md`, a partir dos fatos de pena de `analise/02-decomposicao.md`); `arpac-redator` (capítulo da dosimetria em memoriais, apelação e revisão criminal, sem bullets); `arpac-revisor` (recalcula a planilha e confere súmulas via CoVe em `analise/07-revisao.md`).
 * **Skills conexas**: `/recursos-penais` (apelação da dosimetria; recurso exclusivo da defesa não agrava a pena — CPP, art. 617), `/execucao-penal` (detração, unificação, PPE em curso), `/negocial`, `/lei-de-drogas`, `/jurisprudencia`.
 

@@ -1,6 +1,6 @@
 ---
 name: decomposicao-penal
-description: Manual analítico de Decomposição Atômica de Fatos aplicada ao processo penal (versão criminal do /decomposicao cível). Fatia denúncia, queixa, auto de prisão em flagrante, inquérito, sentença ou acórdão em fatos atômicos com fonte e confiança, separa fato imputado × elemento informativo do inquérito × prova produzida em contraditório (art. 155 CPP), decompõe a denúncia por elementar do tipo para testar inépcia (art. 41 e 395, I, CPP) e correlação (emendatio e mutatio libelli, arts. 383 e 384), decompõe por estrato da teoria do crime e gera a Matriz Processual Penal de Provas (ônus da acusação, art. 156 CPP, in dubio pro reo, art. 386, VI e VII) e a Matriz de Individualização por Réu em concurso de agentes (denúncia genérica). Ative com /decomposicao-penal ou quando o usuário pedir para analisar denúncia, mapear provas dos autos, auditar inquérito, testar justa causa, autoria e materialidade, lacuna probatória, reconhecimento, álibi, correlação entre acusação e sentença ou montar a cronologia do caso criminal. Alimenta o agente arpac-auditor-autos (wiki/fatos-atomicos.md e analise/02-decomposicao.md).
+description: Manual analítico de Decomposição Atômica de Fatos no processo penal (versão criminal do /decomposicao cível). Fatia denúncia, queixa, APF, inquérito, sentença ou acórdão em fatos atômicos com fonte e confiança; separa fato imputado, elemento informativo e prova judicial (art. 155 CPP); decompõe a denúncia por elementar para testar inépcia (arts. 41 e 395, I, CPP) e correlação (emendatio e mutatio, arts. 383 e 384); aplica a teoria do crime por estrato e gera a Matriz Processual Penal de Provas (ônus da acusação, art. 156 CPP; in dubio pro reo, art. 386, VI e VII) e a Matriz de Individualização por Réu (denúncia genérica). Ative com /decomposicao-penal ou quando o usuário pedir para analisar denúncia, mapear provas dos autos, auditar inquérito, testar justa causa, autoria e materialidade, lacuna probatória, reconhecimento, álibi, correlação acusação-sentença ou cronologia do caso criminal. Alimenta o arpac-auditor-autos (wiki/fatos-atomicos.md e analise/02-decomposicao.md).
 ---
 # 🔬 Habilidade: Decomposição Atômica Penal e Matriz Processual Penal de Provas (/decomposicao-penal)
 
@@ -107,19 +107,29 @@ Regras: cada réu responde "na medida de sua culpabilidade" (CP, art. 29); circu
 
 ## 🗂️ 7. Integração ARPA-C (arquivos e agentes)
 * **Agente executor**: `arpac-auditor-autos` (M1, em paralelo com `arpac-prazos-prescricao`). Lê `raw/` (imutável) e `wiki/ficha.md`; escreve `wiki/fatos-atomicos.md` e `analise/02-decomposicao.md` (e as datas que alimentam `wiki/cronologia.md`).
-* **Consumidores**: `arpac-prazos-prescricao` (datas-marco da cronologia), `arpac-estrategista` (árvore de teses em `analise/04-teses.md`), `arpac-revisor` (CoVe: toda afirmação fática da minuta deve apontar um ID F#), `arpac-redator` (narrativa dos fatos sem bullets, art. 7º do SPEC).
-* **Fonte**: `[raw/<arquivo>, id <nº PJe>, fl. <x>]`. **Confiança**: ALTA (2+ fontes ou documento oficial), MÉDIA (1 fonte), BAIXA/INFERIDO (exige validação humana no Portão 1).
+* **Consumidores**: `arpac-prazos-prescricao` (datas-marco da cronologia), `arpac-estrategista` (árvore de teses em `analise/04-teses.md`), `arpac-revisor` (CoVe: toda afirmação fática da minuta deve apontar um ID F#), `arpac-redator` (narrativa dos fatos sem bullets, SPEC §7).
+* **Fonte**: `(fonte: id <nº PJe>, fl. <x> — <confiança>)` (SCHEMA §5); nas tabelas, coluna "Fonte (id/fl.)" com o arquivo de `raw/`. **Confiança**: ALTA (2+ fontes ou documento oficial), MÉDIA (1 fonte), BAIXA/INFERIDO (exige validação humana no Portão 1).
+* **Formato**: os esqueletos de `caso-modelo/` (e do agente `arpac-auditor-autos`) prevalecem; abaixo, os mesmos títulos e colunas, com frontmatter comum do SCHEMA §4.
 
 **Modelo de `wiki/fatos-atomicos.md`**:
 ```markdown
-# Fatos atômicos — <CNJ/apelido> (atualizado em AAAA-MM-DD)
-| ID | Data/hora | Enunciado | Camada | Fonte (id/fl.) | Confiança | Liga-se a |
-| F1 | 12/03/2025 15h | Policiais ingressaram no imóvel X | [INF] | raw/apf.md, id 123, fl. 3 | MÉDIA | Materialidade; vício domiciliar |
-## Contradições entre fontes
-- F6 × F11: versão policial × versão judicial (fl. 3 × mídia id 456)
-## Pendências [PENDENTE: ...]
+# Fatos Atômicos e Matriz Processual Penal de Provas — <CASO>
+## 1 Fatos Atômicos
+| ID | Data/hora | Enunciado | Camada ([IMP] / [INF] / [CNR] / [PRV] / [DEF]) | Fonte (id/fl.) | Confiança | Liga-se a |
+|---|---|---|---|---|---|---|
+| F1 | 12/03/2025 15h | Policiais ingressaram no imóvel X | [INF] | raw/2025-03-12_apf_id123.md, id 123, fl. 3 | MÉDIA | Materialidade; vício domiciliar |
+## 2 Matriz Processual Penal de Provas
+| ID | Enunciado fático | Elementar/circunstância | Ônus | Prova existente / tipo / fonte | Contraditório? (art. 155) | Força | Vício / risco de ilicitude | Ação tática |
+|---|---|---|---|---|---|---|---|---|
+## 3 Fatos Controvertidos e Incontroversos
+| ID | Situação (CONTROVERTIDO / INCONTROVERSO) | Versão da acusação | Versão da defesa | Observação |
+|---|---|---|---|---|
+## 4 Contradições entre Fontes
+| Contradição | Fonte A (id/fl.) | Fonte B (id/fl.) | Relevância para a defesa |
+|---|---|---|---|
+| [CONTRADIÇÃO: F6 × F11] versão policial × versão judicial | APF, fl. 3 | mídia id 456 | [PENDENTE: avaliar] |
 ```
-**Modelo de `analise/02-decomposicao.md`**: (1) Resumo executivo (≤ 10 linhas); (2) Decomposição da denúncia por elementar; (3) Estratos da teoria do crime; (4) Matriz Processual Penal de Provas; (5) Matriz de individualização por réu; (6) Lacunas probatórias e elementares sustentadas só por `[INF]`; (7) Vícios remetidos a `/provas-nulidades`; (8) Perguntas socráticas para o Portão 1; (9) Alertas (RÉU PRESO, inépcia, correlação).
+**Modelo de `analise/02-decomposicao.md`** (numeração idêntica à de `caso-modelo/analise/02-decomposicao.md`): §1 Síntese da Imputação; §2 Teoria do Crime Estratificada — 2.1 Fato típico, 2.2 Ilicitude, 2.3 Culpabilidade, 2.4 Punibilidade, 2.5 Autoria, participação e individualização por réu (a Matriz de Individualização da seção 6 desta skill), 2.6 Qualificadoras, majorantes e agravantes imputadas; §3 Pressupostos Processuais e Condições da Ação Penal; §4 Aptidão da Denúncia (arts. 41 e 395 CPP) — 4.1 Requisitos do art. 41 CPP, 4.2 Decomposição da denúncia por elementar (a tabela da seção 3 desta skill); §5 Correlação Acusação-Sentença (arts. 383 e 384 CPP); §6 Provas — Licitude, Nulidades e Lacunas — 6.1 Vícios (triagem para /provas-nulidades), 6.2 Elementares sustentadas só por [INF] (art. 155 CPP); §7 Divergências com a Ficha e Contradições Relevantes; §8 Fluxogramas — 8.1 Modelo visual dos fatos, 8.2 Próximos passos processuais; §9 Perguntas Socráticas (M1 — autos), `| Q# | Prioridade (CRÍTICA / ALTA / COMPLEMENTAR) | Pergunta | Por que importa | Onde encontrar | Bloqueia (módulo) |`. A Matriz Processual Penal de Provas (seção 5 desta skill) fica em `wiki/fatos-atomicos.md` §2; os alertas (RÉU PRESO, NULIDADE ABSOLUTA, DOCUMENTO ESSENCIAL AUSENTE) vão no frontmatter `alertas:` e no retorno do agente.
 
 ---
 

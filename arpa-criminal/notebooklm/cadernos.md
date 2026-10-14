@@ -29,7 +29,7 @@ O servidor MCP do NotebookLM **já foi adicionado anteriormente** ao Claude Code
 ## 4. Export manual (quando o MCP não estiver disponível)
 1. Abrir o caderno no NotebookLM e fazer as perguntas-padrão da seção 5, **uma por vez e com o texto exato**.
 2. Copiar cada resposta sem editar o mérito, mantendo as marcas de citação das fontes (`[1]`, `[2]`...).
-3. Colar no arquivo de export do caderno, no esqueleto de `Shared/conhecimento/README.md` (reproduzido abaixo), usando como identificador da seção o código da pergunta (o `P<n>` do README é o código: PROC-01, PES-03...). Comentários do escritório vão em blocos `> Nota:` separados da resposta. Nenhum dado de caso entra nesses arquivos.
+3. Colar no arquivo de export do caderno, no esqueleto de `Shared/conhecimento/README.md` (reproduzido abaixo), usando como identificador da seção o código da pergunta (AUT-01, PES-03, PROC-01, ESC-02...). Comentários do escritório vão em blocos `> Nota:` separados da resposta. Nenhum dado de caso entra nesses arquivos.
 4. As respostas do caderno AUTOMAÇÃO COM IA obtidas durante a construção do ARPA-C (AUT-01 a AUT-04) formam o export inicial de `Shared/conhecimento/automacao.md`; a AUT-04 veio truncada e deve ser consultada de novo.
 ```markdown
 ---

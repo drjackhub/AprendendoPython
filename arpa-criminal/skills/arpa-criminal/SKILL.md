@@ -9,7 +9,7 @@ Este arquivo descreve o manual lógico, estrutural e comportamental para coorden
 ---
 
 ## ⚡ Gatilho e Ativação
-* **Comando**: `/arpa-criminal` (alias `/arpac`). Sintaxe: `/arpac [modo] <caso> [peça]`, ex.: `/arpac urgente casos/<CNJ-ou-apelido> defesa-previa`.
+* **Comando**: `/arpa-criminal` (alias `/arpac`). Sintaxe: `/arpac [modo] <caso> [peça]`, ex.: `/arpac urgente casos/<CNJ-ou-apelido> defesa-previa-drogas` (slug do catálogo do `SCHEMA.md` §3).
 * **Descrição**: Executa de forma sequencial, segura e sem atalhos lógicos a análise do caso e a produção da peça criminal, coordenando oito subagentes e validando se as saídas de cada etapa alimentam corretamente as entradas da seguinte.
 * **Detecção automática de modo**: se `CHECK_LIBERTY_STATUS()` indicar réu preso ou flagrante, ou se houver prazo inferior a 48 horas, o orquestrador PROPÕE o modo Urgente antes de iniciar.
 
@@ -75,18 +75,18 @@ Ao receber o comando, o orquestrador apresenta este plano, preenchido com o caso
    - *Lê*: `04`, `05`, `wiki/*`. *Grava*: `analise/06-blueprint.md` (poda, trilogia por tópico, mapa de pedidos em ordem de eventualidade, rol e requerimentos).
    - *Critério de saída*: correspondência biunívoca tese ↔ pedido; ordem da peça definida.
 8. **[ ] Passo 8: M4 Validação** — *Agente*: `arpac-revisor`.
-   - *Lê*: `06`, `05`. *Grava*: `analise/07-revisao.md` (CoherenceCheck, CorrelationCheck, JurisprudenceAlignmentCheck, RequestCompletenessCheck, TimelinessCheck, ClarityAndPersuasionScan, red team MP/juiz).
-   - *Critério de saída*: nenhum achado CRÍTICO aberto. Achado crítico → devolver ao `arpac-estrategista` (máximo de 2 ciclos; depois, escalar ao Douglas).
+   - *Lê*: `06`, `05`. *Grava*: `analise/07-revisao.md` §1 (`modo: blueprint`), com os sete testes `CoherenceCheck()`, `CorrelationCheck()`, `JurisprudenceAlignmentCheck()`, `RequestCompletenessCheck()`, `TimelinessCheck()`, `ClarityAndPersuasionScan()` e `StyleCheck()`, o red team MP/juiz, os achados C# graduados em CRÍTICO / RELEVANTE / ESTÉTICO e o veredito APROVADO / APROVADO COM AJUSTES / REPROVADO.
+   - *Critério de saída*: veredito diferente de REPROVADO (nenhum achado CRÍTICO aberto). Achado crítico → devolver ao responsável indicado no C# (em regra, o `arpac-estrategista`; máximo de 2 ciclos; depois, escalar ao Douglas).
 9. **[ ] Passo 9: ═══ PORTÃO 2 ═══** — apresentar o blueprint resumido e os achados do revisor; aguardar **"Aprovado"**. Após o "Aprovado", lançar EM PARALELO: `arpac-controller` (card → REDAÇÃO) e `arpac-redator`.
 10. **[ ] Passo 10: M5 Redação** — *Agente*: `arpac-redator`.
     - *Lê*: `06`, `05`, `07`, `Shared/estilo.md`. *Grava*: `minutas/<peca>-v1.md` (e `.docx` via `/docx`).
     - *Critério de saída*: prosa sem bullet points na narrativa e na fundamentação; notas de rodapé na primeira menção; pendências listadas ao final.
-11. **[ ] Passo 11: Checagem final da minuta** — *Agente*: `arpac-revisor`. *Grava*: seção "Minuta" de `07-revisao.md`. Reprovada → `arpac-redator` gera `v2` (máximo de 2 ciclos).
+11. **[ ] Passo 11: Checagem final da minuta** — *Agente*: `arpac-revisor` (`modo: minuta`). *Grava*: seção "Minuta" (§2) de `07-revisao.md`, com os mesmos sete testes e o veredito. REPROVADO, ou APROVADO COM AJUSTES → `arpac-redator` gera `v2` com as correções C# (máximo de 2 ciclos).
 12. **[ ] Passo 12: Fechamento de gestão** — *Agente*: `arpac-controller`. *Grava*: `gestao/status.md`, `gestao/log.md`, `Shared/painel-casos.md` (card → PRONTO P/ PROTOCOLO), `napkin_log.md`.
 13. **[ ] Passo 13: ═══ PORTÃO 3 ═══** — Douglas revisa, assina e protocola. Ao receber "Protocolado" (com data e número do protocolo), lançar `arpac-controller` (card → PROTOCOLADO / ACOMPANHAMENTO e agenda dos próximos prazos).
 
 **Variações por modo**:
-* **Urgente**: Passo 1 expresso → `arpac-prazos-prescricao` PRIMEIRO, isolado (prazo e título prisional em minutos) → `arpac-auditor-autos` em escopo reduzido ao necessário para a peça → Portão 1 reduzido (no máximo 5 perguntas, apenas as CRÍTICAS) → `arpac-estrategista` gera `04` resumido e `06` em uma só chamada, com `arpac-pesquisador` EM PARALELO restrito às 2 ou 3 teses-âncora indicadas pelo orquestrador → `arpac-redator` → `arpac-revisor` → `arpac-controller` → Portão 3. O Portão 2 é suprimido, salvo se o Douglas o exigir.
+* **Urgente**: Passo 1 expresso → `arpac-prazos-prescricao` PRIMEIRO, isolado (prazo e título prisional em minutos) → `arpac-auditor-autos` em escopo reduzido ao necessário para a peça → Portão 1 reduzido (no máximo 5 perguntas, apenas as CRÍTICAS) → `arpac-estrategista` gera `04` resumido e `06` em uma só chamada, com `arpac-pesquisador` EM PARALELO restrito às 2 ou 3 teses-âncora indicadas pelo orquestrador (no `06` desse modo, o lugar de cada precedente ainda não pesquisado leva o marcador `[AGUARDA 05: Tn]`) → aguardar o retorno do `arpac-pesquisador` antes de acionar o redator → `arpac-redator` (substitui cada `[AGUARDA 05: Tn]` apenas por citação VERIFICADO da §7 do `05` ou por `[REQUER CONSULTA AO SISTEMA DE PRECEDENTES]`) → `arpac-revisor` → `arpac-controller` → Portão 3. O Portão 2 é suprimido, salvo se o Douglas o exigir.
 * **Revisão de minuta**: Douglas grava a peça em `minutas/<peca>-v0.md` → `arpac-triagem` mínimo (se não houver `ficha.md`) → `arpac-revisor` (Módulo 4.0 completo + red team) → relatório ao Douglas → com "Aprovado", `arpac-redator` gera `v1` incorporando os refinamentos → `arpac-controller`.
 * **Gestão**: apenas `arpac-controller` com as skills de gestão; nenhum arquivo de `analise/` ou `minutas/` é alterado.
 
@@ -132,7 +132,7 @@ Contexto do Douglas: <instruções ou "ver analise/01-triagem.md §Respostas ao 
 Regras: raw/ imutável; fato = fonte (id./fl.) + confiança (ALTA/MÉDIA/BAIXA); nunca inventar
 precedente, número, relator ou data -> [REQUER CONSULTA AO SISTEMA DE PRECEDENTES]; dúvida de
 redação legal -> [VERIFICAR REDAÇÃO VIGENTE]; dado faltante -> [PENDENTE: ...]; não criar subagentes.
-Devolva resumo de até 15 linhas, exatamente neste formato:
+Devolva resumo de até 15 linhas no bloco RETORNO do seu arquivo de agente, com ao menos:
 FEITO: ... | ARQUIVOS: ... | PENDÊNCIAS: ... | ALERTAS: [RÉU PRESO] [PRAZO < 48h] [PRESCRIÇÃO] [REVISÃO 90 DIAS]
 PERGUNTAS SOCRÁTICAS SUGERIDAS: ... | PRÓXIMO PASSO: ...
 ```
@@ -144,7 +144,7 @@ PERGUNTAS SOCRÁTICAS SUGERIDAS: ... | PRÓXIMO PASSO: ...
 | `arpac-prazos-prescricao` | `/prazos-penais` e `/prescricao`: prazo fatal, revisão de 90 dias, excesso de prazo, prescrição em todas as modalidades |
 | `arpac-estrategista` | Árvore em 4 planos, SWOT, skills temáticas; no M3, poda, blueprint e pedidos em eventualidade |
 | `arpac-pesquisador` | RAG em fontes oficiais, CoVe, padrão de citação, divergência entre Turmas |
-| `arpac-revisor` | Os 6 testes do M4 + red team MP/juiz; classificar achados em CRÍTICO / RELEVANTE / ESTÉTICO |
+| `arpac-revisor` | `modo: blueprint` ou `modo: minuta`; os 7 testes do M4 (inclusive `StyleCheck()`) + red team MP/juiz; achados em CRÍTICO / RELEVANTE / ESTÉTICO; veredito APROVADO / APROVADO COM AJUSTES / REPROVADO |
 | `arpac-redator` | Style Rules, prosa sem bullets, notas de rodapé sem repetição, `.docx` |
 | `arpac-controller` | Kanban, etiquetas, SLA dos portões, log, KPIs, napkin, NotebookLM |
 
@@ -163,11 +163,11 @@ Sem ferramenta de subagentes, executar os módulos **sequencialmente na mesma co
 4. **Imputação** (fatos narrados + capitulação) e semáforo da teoria do crime (tipicidade, ilicitude, culpabilidade, punibilidade).
 5. **Provas e nulidades candidatas** (com mapa de derivação, se houver).
 6. **Teses candidatas** (prévia) e **Skills acionadas**.
-7. **Perguntas Socráticas**, numeradas, cirúrgicas e agrupadas por prioridade, cada uma com "por que importa" e "onde encontrar":
-   - **CRÍTICAS** (bloqueiam a peça ou o prazo): P1, P2...
-   - **ALTAS** (mudam a tese ou o pedido): P5, P6...
-   - **COMPLEMENTARES** (reforçam a peça): P9...
-8. Fecho: *"Responda às perguntas e digite **Aprovado** para avançar à estratégia."*
+7. **Perguntas Socráticas**, cirúrgicas e agrupadas por prioridade, cada uma com "por que importa" e "onde encontrar", identificadas pelo `Q#` do arquivo de origem (`SCHEMA.md` §3: `01#Q1`, `02#Q3`, `03#Q2`; `P#` é reservado aos precedentes do `05`):
+   - **CRÍTICA** (bloqueia a peça ou o prazo): ex. `03#Q1`, `02#Q2`...
+   - **ALTA** (muda a tese ou o pedido): ex. `02#Q4`, `01#Q3`...
+   - **COMPLEMENTAR** (reforça a peça): ex. `02#Q7`...
+8. Fecho: *"Responda às perguntas (indicando o código, ex.: `02#Q3`) e digite **Aprovado** para avançar à estratégia."*
 
 **Relatório Final (Portão 3)**: peça e caminho da minuta (`.md`/`.docx`); teses na ordem adotada; pedidos; pendências e tags remanescentes; data-limite de protocolo; checklist de protocolo (procuração, documentos, rol, mídias); próximos prazos e posição do card no Kanban; lembrete de que a revisão, a assinatura e o protocolo são exclusivos do advogado.
 
@@ -177,9 +177,9 @@ Sem ferramenta de subagentes, executar os módulos **sequencialmente na mesma co
 | Alerta | Gatilho | Ação do orquestrador | Etiqueta |
 |---|---|---|---|
 | **RÉU PRESO** | Qualquer prisão ou medida privativa | Propor modo Urgente; liberdade antes do mérito (`/liberdade`) | `#reu-preso` |
-| **PRAZO FATAL** | Prazo < 48h (vermelho) ou < 5 dias (amarelo) | Modo Urgente; não presumir a suspensão do art. 798-A do CPP para réu preso ou Lei Maria da Penha | `#prazo-fatal` |
-| **PRESCRIÇÃO** | Já consumada → pedido imediato (art. 61 do CPP); marco ≤ 180 dias → risco | Verificar o art. 115 do CP (menor de 21 na data do fato ou maior de 70 na sentença); nunca pleitear prescrição virtual (STJ, Súmula 438) | `#prescricao-risco` |
-| **REVISÃO 90 DIAS** | Preventiva sem revisão há mais de 90 dias, ou vencendo em ≤ 10 dias (art. 316, p.ú., do CPP) | Provocar a reavaliação ou o relaxamento; preparar HC. O STF (ADIs 6.581 e 6.582) afastou a soltura automática, mas exige provocação para reavaliar | `#reu-preso` |
+| **PRAZO FATAL** | Termo final em até 2 dias (48h) ou, com réu preso, em até 3 dias (vermelho); de 3 a 5 dias, PRAZO CURTO (amarelo, sem etiqueta) — `SCHEMA.md` §7 | Modo Urgente; não presumir a suspensão do art. 798-A do CPP para réu preso ou Lei Maria da Penha | `#prazo-fatal` |
+| **PRESCRIÇÃO** | Já consumada (PRESCRIÇÃO CONSUMADA) → pedido imediato (art. 61 do CPP); consumação em menos de 6 meses → PRESCRIÇÃO IMINENTE | Verificar o art. 115 do CP (menor de 21 na data do fato ou maior de 70 na sentença); nunca pleitear prescrição virtual (STJ, Súmula 438) | `#prescricao-risco` |
+| **REVISÃO 90 DIAS** | Preventiva sem revisão há mais de 90 dias, ou vencendo em ≤ 10 dias (art. 316, p.ú., do CPP) | Provocar a reavaliação ou o relaxamento; preparar HC. O STF (ADIs 6.581 e 6.582) afastou a soltura automática, mas exige provocação para reavaliar `[REQUER CONSULTA AO SISTEMA DE PRECEDENTES]` | `#reu-preso` |
 | **EXCESSO DE PRAZO** | Instrução paralisada com réu preso | Avaliar HC, observadas as Súmulas 21, 52 e 64 do STJ | `#reu-preso` |
 | **JÚRI** | Pronúncia ou sessão designada | Controlar o prazo do rol do art. 422 do CPP; acionar `/crimes-contra-vida` | `#juri` |
 | **CONTEXTO ESPECIAL** | Violência doméstica / execução / tribunal superior | Acionar a skill temática correspondente | `#maria-da-penha` / `#execucao` / `#superiores` |

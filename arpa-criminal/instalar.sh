@@ -18,7 +18,7 @@ for pasta in "$ORIGEM"/skills/*/; do
   nome="$(basename "$pasta")"
   rm -rf "$DESTINO_CLAUDE/skills/$nome"
   cp -R "$pasta" "$DESTINO_CLAUDE/skills/$nome"
-  echo "skill instalada: /$nome"
+  echo "skill instalada: $nome"
 done
 
 for agente in "$ORIGEM"/agents/*.md; do
@@ -29,7 +29,11 @@ done
 if [ -n "$VAULT" ]; then
   mkdir -p "$VAULT/casos"
   # -n: não sobrescreve o que o escritório já preencheu
-  cp -Rn "$ORIGEM"/templates/. "$VAULT"/
+  if command -v rsync >/dev/null 2>&1; then
+    rsync -a --ignore-existing "$ORIGEM"/templates/ "$VAULT"/
+  else
+    cp -Rn "$ORIGEM"/templates/. "$VAULT"/
+  fi
   echo "templates copiados para: $VAULT (arquivos existentes preservados)"
   echo "para abrir um caso: cp -R \"$VAULT/caso-modelo\" \"$VAULT/casos/<CNJ-ou-apelido>\""
 fi

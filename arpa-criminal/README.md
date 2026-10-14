@@ -80,6 +80,6 @@ Os agentes consultam os cadernos em 3 níveis:
 
 1. pelo MCP do NotebookLM, quando ele estiver conectado no seu computador;
 2. senão, pelos exports em `.md` salvos em `Shared/conhecimento/`;
-3. senão, pelas diretrizes-base de cada skill, avisando `[SEM BASE NOTEBOOKLM]`.
+3. senão, pelas diretrizes-base de cada skill, avisando `[SEM BASE NOTEBOOKLM — aplicar diretriz-base]`.
 
 O caderno de **automação com IA** já foi incorporado a partir das respostas salvas no seu Drive ("Instalando o TecJustiça no Claude Code"). Os conteúdos dos cadernos de **gestão de pessoas, processos e escritórios** não estavam acessíveis nesta sessão. As skills de gestão trazem diretrizes-base consagradas e as perguntas-padrão para personalizá-las com os cadernos.

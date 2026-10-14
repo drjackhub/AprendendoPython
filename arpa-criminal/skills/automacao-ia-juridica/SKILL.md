@@ -54,7 +54,7 @@ graph LR
     E1["1 Download<br/>PJe · SEEU · eproc"]:::auto --> E2["2 OCR Docling<br/>PDF → .md em raw/"]:::auto
     E2 --> E3["3 Mapa dos autos<br/>wiki/index.md + wiki/"]:::auto
     E3 --> E4["4 Esteira ARPA-C<br/>M0 a M5 + portões"]:::auto
-    E4 --> D["minutas/peca-vN.docx"]:::auto
+    E4 --> D["minutas/#lt;peca#gt;-vN.docx"]:::auto
     D --> H(["Douglas revisa, assina e protocola"]):::humano
 ```
 
@@ -106,7 +106,7 @@ pf.line_spacing, pf.space_after, pf.alignment = 1.5, Pt(0), WD_ALIGN_PARAGRAPH.J
 | **QUERY** | ler **primeiro** o `index.md`; ir a `raw/` só se o compilado não responder | responder com fl./id e confiança; em `raw/`, ler só as linhas indicadas no mapa |
 | **LINT** | varredura periódica de contradições entre notas, decisões superadas e páginas órfãs | checklist do SCHEMA §6.3 (frontmatter, rastreabilidade, pendências > 7 dias, precedentes não verificados, coerência tese × pedido, prazos, Kanban, órfãos, export do NotebookLM > 180 dias) + notas de `Shared/modelos/` com `data_atualizacao` acima de 12 meses ou afetadas por alteração legislativa (`[VERIFICAR REDAÇÃO VIGENTE]`) e WikiLinks quebrados |
 
-LINT semanal no Modo Gestão e sempre antes do Portão 2; o resultado vai para o `napkin_log.md`.
+LINT semanal no Modo Gestão e sempre antes do Portão 2, rodado pelo `arpac-controller`: achados do caso vão para `gestao/status.md` §4, os do vault para o retorno ao orquestrador, e os incidentes relevantes para o `napkin_log.md`.
 
 ## 🗃️ Índice mestre de teses e modelos por eixo de resultado
 Navegação em 3 passos `[NotebookLM: Automação com IA]`: `Shared/modelos/INDICE-MESTRE.md` → `_indice.md` do eixo → nota-modelo. Nome determinístico: `eixo<letra>_<peca>_<tese>.md` (ex.: `eixoA_hc_excesso-prazo.md`). Tipos de nota da fonte: pílulas de conhecimento, MOCs, dispositivos/súmulas/precedentes, modelos por eixo, fichas do processo e notas de **"quando NÃO usar"**, que dizem à IA em que hipóteses o modelo não se aplica.
@@ -115,7 +115,7 @@ Navegação em 3 passos `[NotebookLM: Automação com IA]`: `Shared/modelos/INDI
 |---|---|---|---|---|
 | **A** Liberdade | soltura ou cautelar menos gravosa | relaxamento, liberdade provisória, revogação da preventiva, HC, domiciliar (CPP, art. 318), revisão nonagesimal (art. 316, p.ú.) | `/liberdade` | excesso de prazo provocado pela defesa (STJ, Súmula 64) |
 | **B** Rejeição / absolvição sumária | encerrar a ação no início | resposta à acusação (art. 396-A), rejeição (art. 395), absolvição sumária (art. 397), trancamento | `/decomposicao-penal`, `/provas-nulidades` | tese que depende de instrução: a absolvição sumária exige hipótese manifesta |
-| **C** Mérito / absolvição | absolvição, desclassificação, impronúncia | memoriais (art. 403, §3º), alegações na 1ª fase do júri, plenário | `/decomposicao-penal`, `/crimes-*`, `/crimes-contra-vida` | tese subsidiária que implique confissão sem anuência do cliente |
+| **C** Mérito / absolvição | absolvição, desclassificação, impronúncia | memoriais (art. 403, §3º), alegações na 1ª fase do júri, plenário | `/decomposicao-penal`, skill temática do tipo (ex.: `/crimes-contra-patrimonio`, `/lei-de-drogas`), `/crimes-contra-vida` no júri | tese subsidiária que implique confissão sem anuência do cliente |
 | **D** Dosimetria / prescrição | pena mínima, regime, substituição, extinção | teses subsidiárias de pena, apelação na dosimetria, pedido de prescrição | `/dosimetria`, `/prescricao` | atenuante para pena abaixo do mínimo (STJ, Súmula 231), salvo decisão expressa do Douglas de sustentar a superação |
 | **E** Recursos | reforma ou anulação | apelação, RESE, embargos, agravo em execução, REsp/RE | `/recursos-penais`, `/superiores`, `/recurso-especial`, `/recurso-extraordinario` | REsp que dependa de reexame de prova (STJ, Súmula 7) |
 | **F** Execução | benefícios e correção do cálculo | progressão, livramento, remição, indulto, unificação, defesa em PAD | `/execucao-penal` | progressão sem conferir data-base e fração no SEEU |
@@ -203,4 +203,4 @@ Instalação: `curl -fsSL https://claude.ai/install.sh | bash` (macOS, Linux, WS
 
 ## ⚙️ Interface de Expansão
 > [!IMPORTANT]
-> Placeholders para scripts futuros: `pipeline.py <CNJ>` (encadeia download, Docling e mapa e chama `/arpa-criminal`), `mapa_autos_penal.py` (versão penal do `tj-mapa`, que pré-preenche o `wiki/index.md` §2 com o vocabulário de peças acima), `md2docx.py` (minuta Markdown → .docx no estilo do escritório, com notas de rodapé), `lint_vault.py` (LINT agendado com relatório no `napkin_log.md`) e aviso de conclusão do pipeline no WhatsApp do Douglas.
+> Placeholders para scripts futuros: `pipeline.py <CNJ>` (encadeia download, Docling e mapa e chama `/arpa-criminal`), `mapa_autos_penal.py` (versão penal do `tj-mapa`, que pré-preenche o `wiki/index.md` §2 com o vocabulário de peças acima), `md2docx.py` (minuta Markdown → .docx no estilo do escritório, com notas de rodapé), `lint_vault.py` (LINT agendado, com achados em `gestao/status.md` §4 e incidentes no `napkin_log.md`) e aviso de conclusão do pipeline no WhatsApp do Douglas.

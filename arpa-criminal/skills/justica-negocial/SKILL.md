@@ -99,9 +99,9 @@ description: Justiça penal negocial no ARPA-C, com análise estratégica de cus
 - [ ] A matriz custo-benefício foi preenchida e o Termo de Decisão Informada foi assinado?
 
 ## 11. Integração com o ARPA-C
-- **`arpac-auditor-autos` (M1)**: registra em `analise/02-decomposicao.md` a pena cominada, as causas de aumento e diminuição, os antecedentes e os benefícios anteriores, com fonte e confiança.
+- **`arpac-triagem` (M0)**: faz o filtro objetivo em `analise/01-triagem.md` §6 (Triagem Negocial Preliminar: pena cominada, antecedentes e benefícios anteriores), com fonte e confiança. **`arpac-auditor-autos` (M1)**: registra em `analise/02-decomposicao.md` §1 e §2.6 a tipificação e as causas de aumento e diminuição imputadas.
 - **`arpac-prazos-prescricao` (M1)**: em `wiki/prazos.md` e `analise/03-prazos-prescricao.md`, controla a suspensão da prescrição (CP, art. 116, IV; Lei 9.099, art. 89, §6º), o momento de requerer o ANPP (antes do recebimento da denúncia), o período de prova e os prazos das condições.
-- **`arpac-estrategista` (M2/M3)**: avalia o ramo **solução negociada** em `analise/04-teses.md` (mapa de elegibilidade e matriz custo-benefício) e, aprovada a via, define em `analise/06-blueprint.md` a peça: requerimento de proposta, remessa ao órgão superior (§14), aceitação com contraproposta ou impugnação da rescisão.
+- **`arpac-estrategista` (M2/M3)**: avalia o ramo **solução negociada** em `analise/04-teses.md` §4 (Ramo Obrigatório — Solução Negociada, com o mapa de elegibilidade e a matriz custo-benefício) e, aprovada a via, define em `analise/06-blueprint.md` a peça: requerimento de proposta, remessa ao órgão superior (§14), aceitação com contraproposta ou impugnação da rescisão.
 - **`arpac-pesquisador`**: CoVe de todos os pontos `[REQUER CONSULTA]` em `analise/05-jurisprudencia.md`. **`arpac-revisor`**: *red team* do MP (necessidade e suficiência, habitualidade) e do juiz (condições abusivas).
 - **`arpac-controller`**: registra a reunião e o Termo em `gestao/log.md` e acompanha o cumprimento das condições na coluna `PROTOCOLADO / ACOMPANHAMENTO`, com alerta de risco de descumprimento.
 - **Portões**: a via negocial só avança com "Aprovado" do Douglas e com a decisão documentada do cliente.
