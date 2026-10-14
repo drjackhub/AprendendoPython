@@ -81,5 +81,5 @@ data_de_referencia: ""      # AAAA-MM-DD (dia em que os cálculos foram feitos)
 
 ## 7 Perguntas Socráticas (M1 — prazos)
 
-| Q# | Pergunta | Finalidade | Bloqueia (módulo) |
-|---|---|---|---|
+| Q# | Prioridade (CRÍTICA / ALTA / COMPLEMENTAR) | Pergunta | Por que importa | Onde encontrar | Bloqueia (módulo) |
+|---|---|---|---|---|---|

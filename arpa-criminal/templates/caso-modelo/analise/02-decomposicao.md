@@ -113,5 +113,5 @@ flowchart TD
 
 ## 9 Perguntas Socráticas (M1 — autos)
 
-| Q# | Pergunta | Finalidade | Bloqueia (módulo) |
-|---|---|---|---|
+| Q# | Prioridade (CRÍTICA / ALTA / COMPLEMENTAR) | Pergunta | Por que importa | Onde encontrar | Bloqueia (módulo) |
+|---|---|---|---|---|---|

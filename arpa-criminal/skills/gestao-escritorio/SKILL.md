@@ -25,7 +25,7 @@ Manual da operação do escritório que envolve a esteira ARPA-C: da primeira li
 
 ## 🗣️ Roteiro da primeira consulta 🔁
 1. **Acolhimento e sigilo**: explicar o sigilo profissional e quem é o cliente.
-2. **Urgência**: há alguém preso (onde, desde quando, por qual título)? audiência marcada? mandado em aberto? intimação recebida (em que data)? Sim → Expedite e POP-05/POP-04 de `/gestao-processos`.
+2. **Urgência**: há alguém preso (onde, desde quando, por qual título)? audiência marcada? mandado em aberto? intimação recebida (em que data)? Sim → prioridade P1 (Expedite) e POP-05/POP-04 de `/gestao-processos`.
 3. **Procedimento**: inquérito, ação penal ou execução; número, vara, comarca; documentos disponíveis (intimação, BO, nota de culpa, decisão, denúncia).
 4. **Narrativa livre**, depois perguntas abertas, sem julgamento moral. Orientar: não falar do caso com terceiros, por celular ou em redes sociais; não prestar depoimento sem advogado; nunca orientar ocultação ou destruição de prova.
 5. **Condições pessoais** úteis à liberdade e à dosimetria: residência, trabalho, filhos e dependentes, saúde, antecedentes.
@@ -41,20 +41,20 @@ Manual da operação do escritório que envolve a esteira ARPA-C: da primeira li
 2. **Corréus**: aceitar mais de um só se as teses forem convergentes e sem perspectiva de colidência. Colidência típica: um atribui a autoria ao outro; a menor participação de um agrava o outro; colaboração premiada ou confissão delatória; interesses opostos em ANPP; versões incompatíveis.
 3. Na dúvida, não aceitar: defesa colidente é falta ética e expõe o processo à nulidade por deficiência de defesa com prejuízo (STF, Súmula 523).
 4. **Conflito superveniente**: optar com prudência por um dos mandatos, renunciar aos demais e resguardar o sigilo (Código de Ética e Disciplina).
-5. Registro na ficha: `conflito: verificado em AAAA-MM-DD por <pessoa>; nomes cruzados: <n>; resultado: livre | recusado | aceito com ressalva justificada`.
+5. Registro: o `arpac-triagem` grava o resultado em `analise/01-triagem.md` §5 (`| Pessoa (iniciais) | Papel no caso | Vínculo com cliente/caso do escritório | Risco (NENHUM / POTENCIAL / CONFIRMADO) | Providência |`), com data e autor da checagem na coluna "Providência"; risco POTENCIAL ou CONFIRMADO gera o alerta CONFLITO DE INTERESSES (SCHEMA §7) e decisão do Douglas antes da contratação.
 
 ## 🗂️ Ficha de cliente (minimização de dados)
 | Campo | Onde fica | Observação |
 |---|---|---|
 | Nome completo, CPF, RG, endereço, telefones | sistema administrativo (fora do vault) | nunca em `wiki/` nem em prompts |
-| Iniciais e apelido do caso | `wiki/ficha.md` | apelido sem nome |
-| Situação prisional (unidade, desde, título) | `wiki/ficha.md` | gera `#reu-preso` |
-| Procedimentos (CNJ, vara, comarca, fase) | `wiki/ficha.md` | fonte e confiança |
-| Condições pessoais relevantes | `wiki/ficha.md` | saúde é dado sensível: só o necessário |
-| Contato autorizado e escopo da autorização | administrativo + ficha (sem dados de contato) | ex.: "família: datas e situação prisional" |
+| Cliente (assistido), corréus e vítimas por iniciais; apelido do caso | `wiki/ficha.md` §1 | vítima de processo em segredo só por iniciais |
+| Situação prisional (unidade, data, título, custódia, revisão do art. 316) | `wiki/ficha.md` §2 | gera `#reu-preso` |
+| Procedimento (CNJ/IP/APF, juízo, rito, fase, imputação) | `wiki/ficha.md` §1 | fonte e confiança |
+| Condições pessoais relevantes | relato do cliente em `raw/` → ficha | saúde é dado sensível: só o necessário |
+| Contato do cliente/família (iniciais) e escopo da autorização | `wiki/ficha.md` §4 + administrativo | ex.: "família: datas e situação prisional" |
 | Pagador terceiro | administrativo + contrato | pagar não dá acesso à informação |
-| Conflito verificado | `wiki/ficha.md` | linha padronizada acima |
-| Fases contratadas e consentimentos (canal, uso de IA) | contrato + ficha | — |
+| Conflito de interesses | `analise/01-triagem.md` §5 | ver checagem acima |
+| Fases contratadas e consentimentos (canal, uso de IA) | contrato + administrativo | — |
 
 ## 📜 Contrato de honorários criminais
 **Fases contratáveis** (contratar e remunerar por fase, com objeto e marco final claros) 🔁:
@@ -103,15 +103,15 @@ Manual da operação do escritório que envolve a esteira ARPA-C: da primeira li
 ## 📈 KPIs do escritório criminal 🔁
 | KPI | Fórmula | Fonte | Periodicidade | Meta-base |
 |---|---|---|---|---|
-| Taxa de prazos cumpridos | prazos cumpridos tempestivamente ÷ prazos vencidos no período × 100 | "Prazos ativos" dos `status.md` | mensal | 100% |
-| Cumprimento do prazo interno | demandas em `PRONTO P/ PROTOCOLO` até D-2 ÷ demandas com prazo × 100 | painel | mensal | ≥ 90% |
-| Tempo médio de diagnóstico de réu preso | Σ (hora do diagnóstico do Portão 1 − hora da abertura) ÷ nº de casos `#reu-preso` | `status.md` / `log.md` | mensal | ≤ 24h |
+| Taxa de prazos cumpridos | prazos cumpridos tempestivamente ÷ prazos vencidos no período × 100 | `wiki/prazos.md` §1 + `status.md` §2 | mensal | 100% |
+| Cumprimento do prazo interno | peças em `PRONTO P/ PROTOCOLO` até o prazo interno (D-2) ÷ peças com prazo × 100 | `status.md` §3 + `log.md` | mensal | ≥ 90% |
+| Tempo médio de diagnóstico de réu preso | Σ (hora do diagnóstico do Portão 1 − hora da abertura) ÷ nº de casos `#reu-preso` | `log.md` + `status.md` §6 | mensal | ≤ 24h |
 | Taxa de liberdade obtida | liberdades obtidas ÷ pedidos de liberdade decididos × 100, por tipo e instância | `log.md` | trimestral | tendência (sem meta de resultado) |
 | Conversão de consultas | contratos firmados ÷ consultas realizadas × 100 | funil | mensal | — |
 | Ticket médio | honorários contratados no período ÷ nº de contratos no período | financeiro | mensal | — |
 | Horas por caso | Σ horas registradas ÷ nº de casos, segmentado por fase e peça | registro de horas | mensal | base de precificação |
-| Lead time da demanda | média de dias entre `ENTRADA` e `PROTOCOLADO / ACOMPANHAMENTO` | painel / `log.md` | mensal | — |
-| Taxa de retrabalho | demandas devolvidas de `REVISÃO` para `REDAÇÃO` ÷ demandas revisadas × 100 | `log.md` | mensal | ≤ 20% |
+| Lead time da peça | média de dias entre a entrada do card e `PROTOCOLADO / ACOMPANHAMENTO` | `log.md` + `status.md` §7 | mensal | — |
+| Taxa de retrabalho | minutas com veredito REPROVADO ÷ minutas revisadas × 100 | `status.md` §7 | mensal | ≤ 20% |
 | Inadimplência | valores vencidos não pagos ÷ valores vencidos no período × 100 | financeiro | mensal | ≤ 10% |
 | Custo-hora | custos fixos mensais ÷ horas produtivas no mês | financeiro | trimestral | — |
 | Margem por caso | (honorários recebidos − custos diretos − horas × custo-hora) ÷ honorários recebidos × 100 | centro de custo | no encerramento | — |
@@ -135,7 +135,7 @@ Referência: Provimento CFOAB n. 205/2021 sobre publicidade na advocacia `[VERIF
 
 ## ✅ Checklist obrigatório
 - [ ] A urgência foi identificada na primeira consulta e a classe Expedite foi aplicada?
-- [ ] A checagem de conflito, incluindo corréus e o grupo empresarial, está registrada?
+- [ ] A checagem de conflito, incluindo corréus e o grupo empresarial, está registrada em `01-triagem.md` §5?
 - [ ] O contrato delimita fases, exclusões, despesas e pagador terceiro?
 - [ ] Os valores seguem a tabela vigente da OAB/PE, sem aviltamento e sem êxito exclusivo?
 - [ ] A procuração tem os poderes especiais exigidos pelos atos previstos?
@@ -146,7 +146,7 @@ Referência: Provimento CFOAB n. 205/2021 sobre publicidade na advocacia `[VERIF
 
 ## 🔗 Integração com o ARPA-C
 * **`arpac-triagem`**: aplica o roteiro, a checagem de conflito e a minimização ao escrever `analise/01-triagem.md` e `wiki/ficha.md`.
-* **`arpac-controller`**: calcula os KPIs na seção "📊 Indicadores do mês" do `Shared/painel-casos.md` e rascunha relatórios ao cliente a partir do `status.md`.
+* **`arpac-controller`**: calcula os KPIs na seção 5 do Painel Semanal da primeira semana do mês (`/gestao-processos`) e sugere o relatório ao cliente a partir do `status.md`; o envio é sempre humano.
 * **`arpac-redator`**: pode minutar contrato e procuração, sempre como rascunho para o Portão 3.
 
 ## 📓 Integração NotebookLM — caderno GESTÃO DE ESCRITÓRIOS

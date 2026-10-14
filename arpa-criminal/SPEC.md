@@ -97,6 +97,8 @@ Modos de execução do orquestrador:
 │   ├── painel-casos.md           # quadro Kanban de todos os casos criminais
 │   ├── equipe.md                 # pessoas, papéis, RACI, carga
 │   ├── calendario.md             # feriados/suspensões locais (TJPE etc.)
+│   ├── painel-semanal-AAAA-MM-DD.md  # relatório semanal gerado pelo arpac-controller
+│   ├── modelos/                  # índice mestre de teses e modelos criminais (eixos A–H), gravado só após "Aprovado"
 │   └── conhecimento/             # exports dos cadernos NotebookLM em .md (automacao, pessoas, processos, escritorio)
 └── casos/
     └── <CNJ-ou-apelido>/

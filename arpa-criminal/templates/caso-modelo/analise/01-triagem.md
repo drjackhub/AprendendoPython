@@ -73,10 +73,17 @@ execucao: ""                # completo | urgente | revisao-de-minuta | gestao
 
 ## 9 Perguntas Socráticas Iniciais
 
-| Q# | Pergunta | Finalidade | Bloqueia (módulo) |
-|---|---|---|---|
+| Q# | Prioridade (CRÍTICA / ALTA / COMPLEMENTAR) | Pergunta | Por que importa | Onde encontrar | Bloqueia (módulo) |
+|---|---|---|---|---|---|
 
 ## 10 Fontes Consultadas
 
 | Fonte | Tipo (autos / cliente / NotebookLM / skill) | Observação |
 |---|---|---|
+
+## 11 Respostas ao Portão 1
+
+<!-- Preenchida pelo arpac-triagem em modo atualização, depois do "Aprovado" do Douglas no Portão 1. Respostas que mudam dados do caso também atualizam a wiki/ficha.md. -->
+
+| Q# (arquivo#Q) | Resposta do Douglas | Data | Efeito (ficha / teses / prazos) |
+|---|---|---|---|

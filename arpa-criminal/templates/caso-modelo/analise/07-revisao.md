@@ -56,7 +56,7 @@ veredito_minuta: ""         # APROVADO | APROVADO COM AJUSTES | REPROVADO
 
 ### 1.6 Lista de Correções
 
-| C# | Gravidade (CRÍTICA / ALTA / MÉDIA / BAIXA) | Local | Correção | Responsável | Status |
+| C# | Gravidade (CRÍTICO / RELEVANTE / ESTÉTICO) | Local | Correção | Responsável | Status |
 |---|---|---|---|---|---|
 
 ## 2 Revisão da Minuta
@@ -97,10 +97,10 @@ veredito_minuta: ""         # APROVADO | APROVADO COM AJUSTES | REPROVADO
 
 ### 2.6 Lista de Correções
 
-| C# | Gravidade (CRÍTICA / ALTA / MÉDIA / BAIXA) | Local | Correção | Responsável | Status |
+| C# | Gravidade (CRÍTICO / RELEVANTE / ESTÉTICO) | Local | Correção | Responsável | Status |
 |---|---|---|---|---|---|
 
 ## 3 Histórico de Revisões
 
-| Data | Modo (blueprint / minuta) | Objeto e versão | Veredito | Correções CRÍTICAS abertas |
+| Data | Modo (blueprint / minuta) | Objeto e versão | Veredito | Achados CRÍTICOS abertos |
 |---|---|---|---|---|

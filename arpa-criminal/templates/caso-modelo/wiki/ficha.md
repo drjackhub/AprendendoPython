@@ -58,11 +58,24 @@ data_prisao: ""             # AAAA-MM-DD
 | Cautelares diversas / monitoramento | | | |
 | Medidas protetivas vigentes | | | |
 
-## 3 Etiquetas do Kanban
+## 3 Marcos Temporais Essenciais
+
+<!-- Datas mínimas para o arpac-prazos-prescricao rodar já no modo urgente; a cronologia completa é do arpac-auditor-autos. -->
+
+| Marco | Data | Fonte (id/fl.) | Confiança |
+|---|---|---|---|
+| Data do fato | | | |
+| Oferecimento da denúncia ou queixa | | | |
+| Recebimento da denúncia ou queixa | | | |
+| Citação | | | |
+| Sentença, pronúncia ou acórdão | | | |
+| Última intimação relevante (ato e data) | | | |
+
+## 4 Etiquetas do Kanban
 
 <!-- Marque as aplicáveis: #reu-preso #prazo-fatal #prescricao-risco #juri #maria-da-penha #execucao #superiores -->
 
-## 4 Responsáveis e Contato
+## 5 Responsáveis e Contato
 
 | Papel | Pessoa (iniciais) | Observação |
 |---|---|---|
@@ -71,12 +84,12 @@ data_prisao: ""             # AAAA-MM-DD
 | Apoio (estagiário/secretaria) | | |
 | Contato do cliente/família | | |
 
-## 5 Documentos dos Autos
+## 6 Documentos dos Autos
 
 | # | Documento | Status (RECEBIDO / FALTANTE / SOLICITADO) | Local (raw/...) | Prioridade |
 |---|---|---|---|---|
 
-## 6 Histórico de Alterações
+## 7 Histórico de Alterações
 
 | Data | Agente | Alteração |
 |---|---|---|

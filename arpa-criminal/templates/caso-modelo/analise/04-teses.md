@@ -70,5 +70,5 @@ graph TD
 
 ## 9 Perguntas Socráticas (M2)
 
-| Q# | Pergunta | Finalidade | Bloqueia (módulo) |
-|---|---|---|---|
+| Q# | Prioridade (CRÍTICA / ALTA / COMPLEMENTAR) | Pergunta | Por que importa | Onde encontrar | Bloqueia (módulo) |
+|---|---|---|---|---|---|
