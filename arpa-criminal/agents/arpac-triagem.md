@@ -24,7 +24,7 @@ O orquestrador informa `caso:` (pasta em `casos/`), `execucao:` (completo | urge
 2. `PARSE_INPUT(caso, tipo_de_peça)`: leia o intake e as peças-chave; identifique o pedido do cliente, a peça cogitada e a urgência declarada.
 3. `DEFINE_OBJECTIVE_VECTOR(fatos)`: liberdade, nulidade ou trancamento, rejeição ou absolvição, desclassificação, pena mínima e regime, solução negociada; no polo acusatório ou de vítima, responsabilização e proteção da vítima.
 4. `CLASSIFY_PERSECUTION()`: fase (investigação, flagrante/custódia, ação penal em 1º grau, júri 1ª fase ou plenário, recursal, superiores, execução, revisão criminal); rito (ordinário, sumário, sumaríssimo/JECRIM, júri, drogas, funcionário público, Maria da Penha, ECA, especial); competência (estadual, federal, militar, eleitoral, foro por prerrogativa, júri, juizado de violência doméstica); polo; natureza da ação penal; tipificação, penas em abstrato e hediondez. Indique a peça cabível provável (slug do `SCHEMA.md` §3) e as skills temáticas pertinentes.
-5. `CHECK_LIBERTY_STATUS()` e marcos temporais essenciais (fato, denúncia, recebimento, citação, sentença, última intimação) na ficha §3: modalidade da prisão, data, decisão (id/fl.), audiência de custódia, última revisão do art. 316, p.ú., CPP, cautelares do art. 319 CPP, monitoramento, medidas protetivas. Preso em qualquer modalidade gera alerta RÉU PRESO, prioridade P1 e recomendação de `execucao: urgente`.
+5. `CHECK_LIBERTY_STATUS()` e marcos temporais essenciais (fato, denúncia, recebimento, citação, sentença, última intimação) na ficha §2.2: modalidade da prisão, data, decisão (id/fl.), audiência de custódia, última revisão do art. 316, p.ú., CPP, cautelares do art. 319 CPP, monitoramento, medidas protetivas. Preso em qualquer modalidade gera alerta RÉU PRESO, prioridade P1 e recomendação de `execucao: urgente`.
 6. `CHECK_CONFLICT_OF_INTEREST()`: faça Grep dos nomes e iniciais de cliente, corréus, vítimas e testemunhas-chave nas fichas dos outros casos e no painel. Avalie colidência entre corréus (imputação recíproca, colaboração de um contra outro, versões incompatíveis) e vínculo com cliente do escritório no polo oposto. Risco POTENCIAL ou CONFIRMADO gera alerta CONFLITO DE INTERESSES e exige decisão do Douglas antes do M1 (Código de Ética e Disciplina da OAB) [VERIFICAR REDAÇÃO VIGENTE].
 7. `NEGOTIATION_SCREENING()`: requisitos objetivos de ANPP (art. 28-A CPP), transação penal (art. 76 da Lei 9.099/95), suspensão condicional do processo (art. 89 da Lei 9.099/95) e colaboração premiada (Lei 12.850/13). Só o filtro objetivo; a estratégia é do `arpac-estrategista`.
 8. `LIST_MISSING_DOCS()`: D1, D2… com finalidade, quem fornece e prioridade (íntegra do IP, mídias de audiência, laudos, folha de antecedentes, comprovantes de residência e trabalho para pedido de liberdade, procuração).
@@ -46,18 +46,19 @@ Frontmatter: bloco comum do `SCHEMA.md` §4 mais os campos extras do caso-modelo
 ## 1 Identificação e Classificação
 | Campo | Valor | Fonte (id/fl.) | Confiança |
 <!-- linhas fixas: Nº CNJ / IP / APF; Apelido do caso; Cliente (assistido); Polo de atuação; Corréus; Vítima(s); Juízo / Vara / Comarca; Autoridade policial / Órgão do MP; Fase da persecução; Rito; Competência; Ação penal (natureza); Imputação (tipificação); Penas em abstrato (mín./máx.); Hediondo ou equiparado; Peça cabível provável -->
-## 2 Status de Liberdade
+## 2 Status de Liberdade e Marcos Temporais
+### 2.1 Situação prisional
 | Campo | Valor | Fonte (id/fl.) | Confiança |
 <!-- linhas fixas: Situação prisional; Data da prisão; Estabelecimento; Decisão que decretou ou manteve; Audiência de custódia; Última revisão (art. 316, p.ú., CPP); Cautelares diversas / monitoramento; Medidas protetivas vigentes -->
-## 3 Marcos Temporais Essenciais
+### 2.2 Marcos temporais essenciais
 | Marco | Data | Fonte (id/fl.) | Confiança |
 <!-- linhas fixas: Data do fato; Oferecimento da denúncia ou queixa; Recebimento da denúncia ou queixa; Citação; Sentença, pronúncia ou acórdão; Última intimação relevante (ato e data) -->
-## 4 Etiquetas do Kanban
-## 5 Responsáveis e Contato
+## 3 Etiquetas do Kanban
+## 4 Responsáveis e Contato
 | Papel | Pessoa (iniciais) | Observação |
-## 6 Documentos dos Autos
+## 5 Documentos dos Autos
 | # | Documento | Status (RECEBIDO / FALTANTE / SOLICITADO) | Local (raw/...) | Prioridade |
-## 7 Histórico de Alterações
+## 6 Histórico de Alterações
 | Data | Agente | Alteração |
 ~~~
 

@@ -45,7 +45,9 @@ data_prisao: ""             # AAAA-MM-DD
 | Hediondo ou equiparado | | | |
 | Peça cabível provável | | | |
 
-## 2 Status de Liberdade
+## 2 Status de Liberdade e Marcos Temporais
+
+### 2.1 Situação prisional
 
 | Campo | Valor | Fonte (id/fl.) | Confiança |
 |---|---|---|---|
@@ -58,7 +60,7 @@ data_prisao: ""             # AAAA-MM-DD
 | Cautelares diversas / monitoramento | | | |
 | Medidas protetivas vigentes | | | |
 
-## 3 Marcos Temporais Essenciais
+### 2.2 Marcos temporais essenciais
 
 <!-- Datas mínimas para o arpac-prazos-prescricao rodar já no modo urgente; a cronologia completa é do arpac-auditor-autos. -->
 
@@ -71,11 +73,11 @@ data_prisao: ""             # AAAA-MM-DD
 | Sentença, pronúncia ou acórdão | | | |
 | Última intimação relevante (ato e data) | | | |
 
-## 4 Etiquetas do Kanban
+## 3 Etiquetas do Kanban
 
 <!-- Marque as aplicáveis: #reu-preso #prazo-fatal #prescricao-risco #juri #maria-da-penha #execucao #superiores -->
 
-## 5 Responsáveis e Contato
+## 4 Responsáveis e Contato
 
 | Papel | Pessoa (iniciais) | Observação |
 |---|---|---|
@@ -84,12 +86,12 @@ data_prisao: ""             # AAAA-MM-DD
 | Apoio (estagiário/secretaria) | | |
 | Contato do cliente/família | | |
 
-## 6 Documentos dos Autos
+## 5 Documentos dos Autos
 
 | # | Documento | Status (RECEBIDO / FALTANTE / SOLICITADO) | Local (raw/...) | Prioridade |
 |---|---|---|---|---|
 
-## 7 Histórico de Alterações
+## 6 Histórico de Alterações
 
 | Data | Agente | Alteração |
 |---|---|---|
